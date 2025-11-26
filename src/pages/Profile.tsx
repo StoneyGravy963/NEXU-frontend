@@ -25,9 +25,14 @@ const UserProfile: React.FC = () => {
                 </div>
               </div>
             </div>
-            <button className="mt-6 md:mt-0 md:ml-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
-              Enviar Mensaje
-            </button>
+            <div className="flex flex-col md:ml-auto mt-6 md:mt-0 space-y-2">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                Enviar Mensaje
+              </button>
+              <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">
+                Editar Perfil
+              </button>
+            </div>
           </div>
 
           <div className="mt-8">

@@ -12,15 +12,15 @@ const ChatInput: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center">
+    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
       <input
         type="text"
         placeholder="Escribe un mensaje..."
-        className="w-full bg-gray-700 text-white rounded-l-lg px-4 py-2 focus:outline-none"
+        className="flex-1 bg-gray-700 text-white rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={text}
         onChange={e => setText(e.target.value)}
       />
-      <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg">
+      <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
         Enviar
       </button>
     </form>

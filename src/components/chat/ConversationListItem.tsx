@@ -18,7 +18,11 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
 
   return (
     <div
-      className={`flex items-center p-4 cursor-pointer hover:bg-gray-700 ${isSelected ? 'bg-gray-700' : ''}`}
+      className={`flex items-center p-4 cursor-pointer border-l-4 ${
+        isSelected
+          ? 'border-blue-500 bg-gray-700'
+          : 'border-transparent hover:bg-gray-700'
+      }`}
       onClick={onSelect}
     >
       <img
