@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --color-oxford-blue: #050d31;
+  --color-midnight-green: #0b5457;
+  --color-zomp: #119b7d;
+  --color-emerald: #13ce83;
+  --color-primary: #13ce83;
+}
 :root {
-    /* Tema Claro - Valores por defecto */
+
     --color-primary: #007BFF;
     --color-secondary: #28A745;
     --color-background: #FFFFFF;
@@ -11,8 +19,8 @@
     --color-accent-error: #DC3545;
 }
 
-/* Tema Oscuro - Sobreescribir variables con una clase */
 .dark-theme {
+    
     --color-primary: #4DA6FF;
     --color-secondary: #4CAF50;
     --color-background: #121212;
@@ -25,12 +33,11 @@
 body {
     background-color: var(--color-background);
     color: var(--color-text-default);
-    transition: background-color 0.3s, color 0.3s; /* Transición suave de temas */
+    transition: background-color 0.3s, color 0.3s; 
 }
 
-/* Ejemplo de cómo usarla en un componente */
+
 .btn-primary {
     background-color: var(--color-primary);
-    color: var(--color-background); /* Texto blanco en botón azul */
-    /* ... otros estilos */
+    color: var(--color-background); 
 }

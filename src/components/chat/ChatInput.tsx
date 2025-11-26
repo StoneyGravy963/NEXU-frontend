@@ -6,7 +6,7 @@ const ChatInput: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
-      console.log('Mensaje enviado:', text); // Simulate sending
+      console.log('Mensaje enviado:', text);
       setText('');
     }
   };

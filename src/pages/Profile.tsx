@@ -2,11 +2,12 @@ import React from 'react';
 import { mockUsers } from '../data/mocks';
 import type { User } from '../types/user';
 
+
 const UserProfile: React.FC = () => {
-  const user: User = mockUsers[0]; // For now, we display the first user
+  const user: User = mockUsers[0]; 
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-8">
+    <div className="bg-test-yellow text-white min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-gray-800 rounded-lg shadow-lg p-8">
           <div className="flex flex-col items-center md:flex-row md:items-start">
@@ -26,7 +27,7 @@ const UserProfile: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col md:ml-auto mt-6 md:mt-0 space-y-2">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
                 Enviar Mensaje
               </button>
               <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">
