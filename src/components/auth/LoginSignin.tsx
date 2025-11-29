@@ -1,8 +1,9 @@
-import { useState } from "react";
-
+import { useRef, useState } from "react";
+import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 export default function LoginSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const ref = useRef<any>(null);
 
   const handleLogin = () => {
     alert(`Login: ${email}`);
@@ -13,40 +14,165 @@ export default function LoginSignup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-80">
-        <h2 className="text-center text-2xl font-bold mb-4">Login</h2>
+      <Parallax pages={3} ref={ref} className="h-screen w-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two)">
+        <div className="pointer-events-none absolute left-8 top-12 transform -rotate-6 w-[2cm] h-[80vh] bg-blue-500/40 rounded-md -z-10"></div>
+        <div className="pointer-events-none absolute left-3/4 -top-6 transform rotate-4 w-[2cm] h-[55vh] bg-blue-400/30 rounded-md -z-10"></div>
+          <ParallaxLayer
+            offset={0.5}
+            factor={1.5}
+            speed={0.3}
 
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border rounded-lg mb-3"
-        />
-
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border rounded-lg mb-3"
-        />
-
-        <button
-          onClick={handleLogin}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 mb-3"
+            className=" flex items-center justify-center mt-14"
         >
-          Login
-        </button>
+                    <div className="pointer-events-none absolute left-3/8 -top-6 transform rotate-4 w-[2cm] h-[55vh] bg-blue-400/30 rounded-md -z-10"></div>
+              </ParallaxLayer>
+          <ParallaxLayer
+            offset={1}
+            factor={1.5}
+            speed={0.3}
 
-        <button
-          onClick={handleSignup}
-          className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+            className=" "
         >
-          Sign Up
-        </button>
-      </div>
-    </div>
+        <div className="pointer-events-none absolute left-7/8 -top-12 transform -rotate-6 w-[2cm] h-[80vh] bg-blue-500/40 rounded-md -z-10"></div>
+              </ParallaxLayer>
+       
+        <ParallaxLayer
+            factor={1}
+            speed={0.5}
+
+            className=" flex items-center justify-center mt-14"
+        >
+            <img src="/img/nexuLetter.webp" alt="NEXU Logo" width={150} height={150} />
+        </ParallaxLayer>
+        <ParallaxLayer
+            offset={0.3}
+            speed={0.1}
+            factor={1.5}
+            className=" flex items-center justify-start mt-48 ml-20"
+        >   <img src="/img/res1.webp" alt="resource1" width={400} className="" /></ParallaxLayer>
+        <ParallaxLayer
+            offset={0.9}
+            speed={0.1}
+            factor={1.5}
+            className=" flex items-center justify-start mt-48 ml-20"
+        >   <img src="/img/res2.webp" alt="resource2" width={400} className="" /></ParallaxLayer>
+        <ParallaxLayer
+            offset={0.4}
+            speed={0.5}
+            factor={2.5}
+            className=" flex items-center justify-start mt-48 ml-30"
+        >   <img src="/img/res3.webp" alt="resource3" width={400} className="" /></ParallaxLayer>
+        <ParallaxLayer
+            offset={0.5}
+            speed={0.5}
+            factor={1.5}
+            className=" flex items-center mt-48 ml-300"
+        >   <img src="/img/res4.webp" alt="resource4" width={400} className="" /></ParallaxLayer>
+        <ParallaxLayer
+            offset={0.6}
+            speed={0.3}
+            factor={1.8}
+            className=" flex items-center mt-80 ml-280"
+        >   <img src="/img/res5.webp" alt="resource5" width={400} className="" /></ParallaxLayer>
+        <ParallaxLayer
+            offset={0.8}
+            speed={1}
+            factor={1.5}
+            className="flex items-center justify-center flex-col"
+             onClick={() => ref.current.scrollTo(3)}
+        >
+            <h2 className="text-3xl text-white">to</h2>
+            <h2 className="text-3xl text-white">Join to the Community</h2>
+
+        </ParallaxLayer>
+        <ParallaxLayer
+            offset={1.5}
+            speed={1}
+            factor={1}
+            className="flex items-center justify-center ml-20"
+             onClick={() => ref.current.scrollTo(3)}
+        >
+            <h2 className="text-3xl text-white"> to Learn</h2>
+
+        </ParallaxLayer>
+        <ParallaxLayer
+            offset={1.15}
+            speed={1}
+            factor={1}
+            className="flex items-center justify-center ml-50"
+             onClick={() => ref.current.scrollTo(3)}
+        >
+            <h2 className="text-3xl text-white"> to Explore</h2>
+
+        </ParallaxLayer>
+        <ParallaxLayer
+            offset={0.9}
+            speed={1}
+            factor={1}
+            className="flex items-center justify-center mt-100 -ml-40"
+             onClick={() => ref.current.scrollTo(3)}
+        >
+            <h2 className="text-3xl text-white"> to Discover</h2>
+
+        </ParallaxLayer>
+        
+        <ParallaxLayer
+            offset={2}
+            speed={0.5}
+            className=" flex flex-col items-center justify-center z-1"
+            
+        >
+            <h1 className="text-4xl text-white -mb-12">to</h1>
+            <img src="/img/nexuLetter.webp" alt="NEXU Logo" width={150} height={50} className="-mb-8" />
+            <div className=" bg-opacity-20 backdrop-blur-xs p-8 rounded-lg shadow-lg w-2/5 mt-20">
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 placeholder-gray-300 text-white"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 placeholder-gray-300 text-white"
+                />
+                <button
+                    onClick={handleLogin}
+                    className="w-full bg-(--midnight-green) text-white py-2 rounded hover:bg-(--emerald) transition-colors"
+                >
+                    Login
+                </button>
+                <button
+                    onClick={handleSignup}
+                    className="w-full mt-4 bg-(--zomp) text-white py-2 rounded hover:bg-(--emerald) transition-colors"
+                >
+                    Sign Up
+                </button>
+            </div>
+        </ParallaxLayer>
+         <ParallaxLayer
+            sticky={{start:0 , end:1.65}}
+            factor={2}
+            speed={0.5}
+            className="flex items-center justify-center -z-1"
+           
+        >
+            <h2 className="text-5xl text-white">Welcome</h2>
+           
+        
+        </ParallaxLayer>
+        <ParallaxLayer
+            offset={1.8}
+            speed={0.2}
+            factor={1.8}
+            className=" flex items-center justify-center ml-100"
+        >
+            <img src="/img/logo.webp" alt="logo" width={800}/>
+        </ParallaxLayer>
+      </Parallax>
+   
   );
 }

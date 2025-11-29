@@ -9,18 +9,15 @@
     --color-text-default: #343A40;
     --color-text-subtle: #6C757D;
     --color-accent-error: #DC3545;
+    --oxford-blue: #050d31ff;
+    --oxford-two: rgb(3, 8, 30);
+    --midnight-green: #0b5457ff;
+    --zomp: #119b7dff;
+    --emerald: rgb(16, 141, 91);
+
+
 }
 
-/* Tema Oscuro - Sobreescribir variables con una clase */
-.dark-theme {
-    --color-primary: #4DA6FF;
-    --color-secondary: #4CAF50;
-    --color-background: #121212;
-    --color-surface: #1E1E1E;
-    --color-text-default: #E0E0E0;
-    --color-text-subtle: #A0A0A0;
-    --color-accent-error: #FF5252;
-}
 
 body {
     background-color: var(--color-background);
