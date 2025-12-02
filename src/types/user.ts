@@ -3,9 +3,10 @@ export interface User {
   nombre_usuario: string;
   nombre_completo: string;
   correo_electronico: string;
-  biografia?: string;
+  descripcion?: string;
   habilidades: string[];
-  reputacion: number;
-  tags: string[];
+  carrera?: string;
+  genero?: string;
+  fecha_nacimiento?: string;
   avatarUrl?: string;
 }

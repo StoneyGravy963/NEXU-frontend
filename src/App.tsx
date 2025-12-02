@@ -10,13 +10,13 @@ function App() {
         <nav className="bg-gray-800 p-4">
           <ul className="flex space-x-4">
             <li>
-              <Link to="/" className="hover:text-blue-400">Home</Link>
+              <Link to="/" className="hover:text-blue-400">Inicio</Link>
             </li>
             <li>
-              <Link to="/profile" className="hover:text-blue-400">Profile</Link>
+              <Link to="/profile" className="hover:text-blue-400">Perfil</Link>
             </li>
             <li>
-              <Link to="/chat" className="hover:text-blue-400">Chat</Link>
+              <Link to="/chat" className="hover:text-blue-400">Chats</Link>
             </li>
           </ul>
         </nav>

@@ -19,12 +19,9 @@ const UserProfile: React.FC = () => {
             <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
               <h1 className="text-3xl font-bold">{user.nombre_completo}</h1>
               <p className="text-gray-400">@{user.nombre_usuario}</p>
-              <div className="mt-2">
-                <span className="text-yellow-400">Reputación: {user.reputacion}</span>
-                <div className="w-full bg-gray-700 rounded-full h-2.5 mt-1">
-                  <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${user.reputacion}%` }}></div>
-                </div>
-              </div>
+              {user.carrera && <p className="text-gray-400 mt-1">Carrera: {user.carrera}</p>}
+              {user.genero && <p className="text-gray-400">Género: {user.genero}</p>}
+              {user.fecha_nacimiento && <p className="text-gray-400">Fecha de Nacimiento: {user.fecha_nacimiento}</p>}
             </div>
             <div className="flex flex-col md:ml-auto mt-6 md:mt-0 space-y-2">
               <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
@@ -37,8 +34,8 @@ const UserProfile: React.FC = () => {
           </div>
 
           <div className="mt-8">
-            <h2 className="text-2xl font-semibold">Biografía</h2>
-            <p className="text-gray-300 mt-2">{user.biografia}</p>
+            <h2 className="text-2xl font-semibold">Descripción</h2>
+            <p className="text-gray-300 mt-2">{user.descripcion}</p>
           </div>
 
           <div className="mt-8">
@@ -52,16 +49,7 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold">Tags</h2>
-            <div className="flex flex-wrap mt-2">
-              {user.tags.map((tag, index) => (
-                <span key={index} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+
 
           <div className="mt-8">
             <h2 className="text-2xl font-semibold">Contacto</h2>
