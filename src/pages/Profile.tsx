@@ -7,7 +7,7 @@ const UserProfile: React.FC = () => {
   const user: User = mockUsers[0]; 
 
   return (
-    <div className="bg-test-yellow text-white min-h-screen p-8">
+    <div className="bg-oxford-blue text-white min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-gray-800 rounded-lg shadow-lg p-8">
           <div className="flex flex-col items-center md:flex-row md:items-start">

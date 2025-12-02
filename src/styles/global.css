@@ -6,7 +6,7 @@
   --color-midnight-green: #0b5457;
   --color-zomp: #119b7d;
   --color-emerald: #13ce83;
-  --color-primary: #13ce83;
+  --color-primary: #DC3545;
 }
 :root {
 
@@ -24,6 +24,10 @@
     --emerald: rgb(16, 141, 91)
 }
 
+
+/* html, body {
+    overflow-x: hidden;
+} */
 
 body {
     background-color: var(--color-background);

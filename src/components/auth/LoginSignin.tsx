@@ -15,7 +15,7 @@ export default function LoginSignup() {
   };
 
   return (
-      <Parallax pages={3} ref={ref} className="h-screen w-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two)">
+      <Parallax pages={3} ref={ref} className="h-screen w-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two) overflow-x-hidden">
         <div className="pointer-events-none absolute left-8 top-12 transform -rotate-6 w-[2cm] h-[80vh] bg-blue-500/40 rounded-md -z-10"></div>
         <div className="pointer-events-none absolute left-3/4 -top-6 transform rotate-4 w-[2cm] h-[55vh] bg-blue-400/30 rounded-md -z-10"></div>
           <ParallaxLayer
