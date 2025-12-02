@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+import ScrollDownArrow from "../resources/ScrollDownArrow";
 export default function LoginSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,8 @@ export default function LoginSignup() {
         >
                     <div className="pointer-events-none absolute left-3/8 -top-6 transform rotate-4 w-[2cm] h-[55vh] bg-blue-400/30 rounded-md -z-10"></div>
               </ParallaxLayer>
+              
+
           <ParallaxLayer
             offset={1}
             factor={1.5}
@@ -35,7 +38,12 @@ export default function LoginSignup() {
         >
         <div className="pointer-events-none absolute left-7/8 -top-12 transform -rotate-6 w-[2cm] h-[80vh] bg-blue-500/40 rounded-md -z-10"></div>
               </ParallaxLayer>
-       
+        <ParallaxLayer
+        sticky={{ start: 0, end: 0.1 }}
+        className="flex justify-center"
+      >
+        <ScrollDownArrow onClick={() => ref.current.scrollTo(1)} />
+      </ParallaxLayer>
         <ParallaxLayer
             factor={1}
             speed={0.5}
@@ -81,8 +89,8 @@ export default function LoginSignup() {
             className="flex items-center justify-center flex-col"
              onClick={() => ref.current.scrollTo(3)}
         >
-            <h2 className="text-3xl text-white">to</h2>
-            <h2 className="text-3xl text-white">Join to the Community</h2>
+            <h2 className="text-3xl text-white">a Unirte a</h2>
+            <h2 className="text-3xl text-white">la Comunidad Más Grande</h2>
 
         </ParallaxLayer>
         <ParallaxLayer
@@ -92,7 +100,7 @@ export default function LoginSignup() {
             className="flex items-center justify-center ml-20"
              onClick={() => ref.current.scrollTo(3)}
         >
-            <h2 className="text-3xl text-white"> to Learn</h2>
+            <h2 className="text-3xl text-white">a Aprender</h2>
 
         </ParallaxLayer>
         <ParallaxLayer
@@ -102,7 +110,7 @@ export default function LoginSignup() {
             className="flex items-center justify-center ml-50"
              onClick={() => ref.current.scrollTo(3)}
         >
-            <h2 className="text-3xl text-white"> to Explore</h2>
+            <h2 className="text-3xl text-white"> a Explorar</h2>
 
         </ParallaxLayer>
         <ParallaxLayer
@@ -112,7 +120,7 @@ export default function LoginSignup() {
             className="flex items-center justify-center mt-100 -ml-40"
              onClick={() => ref.current.scrollTo(3)}
         >
-            <h2 className="text-3xl text-white"> to Discover</h2>
+            <h2 className="text-3xl text-white"> a Descubrir</h2>
 
         </ParallaxLayer>
         
@@ -122,7 +130,7 @@ export default function LoginSignup() {
             className=" flex flex-col items-center justify-center z-1"
             
         >
-            <h1 className="text-4xl text-white -mb-12">to</h1>
+            <h1 className="text-4xl text-white -mb-12">a</h1>
             <img src="/img/nexuLetter.webp" alt="NEXU Logo" width={150} height={50} className="-mb-8" />
             <div className=" bg-opacity-20 backdrop-blur-xs p-8 rounded-lg shadow-lg w-2/5 mt-20">
                 <input
@@ -160,7 +168,7 @@ export default function LoginSignup() {
             className="flex items-center justify-center -z-1"
            
         >
-            <h2 className="text-5xl text-white">Welcome</h2>
+            <h2 className="text-5xl text-white">Bienvenido</h2>
            
         
         </ParallaxLayer>
