@@ -1,17 +1,44 @@
 import { useRef, useState } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ScrollDownArrow from "../resources/ScrollDownArrow";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 export default function LoginSignup() {
+  const { login, signup } = useAuth();
+  const navigate = useNavigate();
+
+  const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  
   const ref = useRef<any>(null);
 
-  const handleLogin = () => {
-    alert(`Login: ${email}`);
+  const handleLogin = async () => {
+    try {
+      await login({ email, password });
+      // Navigation is handled by the PublicRoute wrapper in App.tsx, 
+      // but we can explicity navigate just in case or for clarity.
+      navigate('/'); 
+    } catch (error) {
+      console.error(error);
+      alert("Login failed. Please check your credentials.");
+    }
   };
 
-  const handleSignup = () => {
-    alert(`Sign Up: ${email}`);
+  const handleSignup = async () => {
+    try {
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+      await signup({ name, email, password });
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
@@ -133,6 +160,15 @@ export default function LoginSignup() {
             <h1 className="text-4xl text-white -mb-12">a</h1>
             <img src="/img/nexuLetter.webp" alt="NEXU Logo" width={150} height={50} className="-mb-8" />
             <div className=" bg-opacity-20 backdrop-blur-xs p-8 rounded-lg shadow-lg w-2/5 mt-20">
+                {isSignup && (
+                  <input
+                      type="text"
+                      placeholder="Full Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 placeholder-gray-300 text-white"
+                  />
+                )}
                 <input
                     type="email"
                     placeholder="Email"
@@ -147,18 +183,48 @@ export default function LoginSignup() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 placeholder-gray-300 text-white"
                 />
-                <button
-                    onClick={handleLogin}
-                    className="w-full bg-(--midnight-green) text-white py-2 rounded hover:bg-(--emerald) transition-colors"
-                >
-                    Login
-                </button>
-                <button
-                    onClick={handleSignup}
-                    className="w-full mt-4 bg-(--zomp) text-white py-2 rounded hover:bg-(--emerald) transition-colors"
-                >
-                    Sign Up
-                </button>
+                
+                {!isSignup ? (
+                  <>
+                    <button
+                        onClick={handleLogin}
+                        className="w-full bg-(--midnight-green) text-white py-2 rounded hover:bg-(--emerald) transition-colors cursor-pointer"
+                    >
+                        Login
+                    </button>
+                    <div className="mt-4 text-center">
+                      <p className="text-white text-sm">
+                        Don't have an account?{" "}
+                        <button 
+                          onClick={() => setIsSignup(true)} 
+                          className="text-blue-300 hover:text-blue-100 underline cursor-pointer"
+                        >
+                          Sign Up
+                        </button>
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                        onClick={handleSignup}
+                        className="w-full bg-(--zomp) text-white py-2 rounded hover:bg-(--emerald) transition-colors cursor-pointer"
+                    >
+                        Sign Up
+                    </button>
+                    <div className="mt-4 text-center">
+                      <p className="text-white text-sm">
+                        Already have an account?{" "}
+                        <button 
+                          onClick={() => setIsSignup(false)} 
+                          className="text-blue-300 hover:text-blue-100 underline cursor-pointer"
+                        >
+                          Login
+                        </button>
+                      </p>
+                    </div>
+                  </>
+                )}
             </div>
         </ParallaxLayer>
          <ParallaxLayer
@@ -181,6 +247,5 @@ export default function LoginSignup() {
             <img src="/img/logo.webp" alt="logo" width={800}/>
         </ParallaxLayer>
       </Parallax>
-   
   );
 }

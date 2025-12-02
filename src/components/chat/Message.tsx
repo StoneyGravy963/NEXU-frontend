@@ -6,8 +6,8 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {
-  // Assuming the current user's ID is 1
-  const isCurrentUser = message.authorId === 1;
+  // Assuming the current user's ID is '1'
+  const isCurrentUser = message.authorId === '1';
 
   return (
     <div className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} mb-4`}>

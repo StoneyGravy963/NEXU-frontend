@@ -1,15 +1,15 @@
 import type { User } from './user';
 
 export interface ChatMessage {
-  id: string; // Puede ser un UUID
-  authorId: number; // ID del usuario que envía el mensaje
+  id: string;
+  authorId: string; // Changed to string to match User.id
   text: string;
-  timestamp: Date;
+  timestamp: string; // Changed to string for easier serialization/mocking
 }
 
 export interface ChatConversation {
-  id: string; // Puede ser un UUID
-  participants: User[]; // Lista de usuarios en la conversación
+  id: string;
+  participants: User[];
   messages: ChatMessage[];
   unreadCount?: number;
 }

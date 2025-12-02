@@ -17,7 +17,7 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
   }
 
   // Assuming the current user is mockUsers[0] (id: 1)
-  const otherParticipant = conversation.participants.find(p => p.id !== 1);
+  const otherParticipant = conversation.participants.find(p => p.id !== '1');
 
   return (
     <div className="flex-1 flex flex-col">
@@ -27,10 +27,10 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
           <>
             <img
               src={otherParticipant.avatarUrl}
-              alt={otherParticipant.nombre_completo}
+              alt={otherParticipant.name}
               className="w-10 h-10 rounded-full mr-4"
             />
-            <h2 className="text-xl font-semibold">{otherParticipant.nombre_completo}</h2>
+            <h2 className="text-xl font-semibold">{otherParticipant.name}</h2>
           </>
         )}
       </div>

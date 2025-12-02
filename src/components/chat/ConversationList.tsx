@@ -12,7 +12,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations, sele
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredConversations = conversations.filter(convo =>
-    convo.participants.some(p => p.nombre_completo.toLowerCase().includes(searchTerm.toLowerCase()))
+    convo.participants.some(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (

@@ -9,7 +9,7 @@ interface ConversationListItemProps {
 
 const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversation, isSelected, onSelect }) => {
   // Assuming the current user is mockUsers[0] (id: 1), the other participant is the one we want to display.
-  const otherParticipant = conversation.participants.find(p => p.id !== 1);
+  const otherParticipant = conversation.participants.find(p => p.id !== '1');
   const lastMessage = conversation.messages[conversation.messages.length - 1];
 
   if (!otherParticipant) {
@@ -27,12 +27,12 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
     >
       <img
         src={otherParticipant.avatarUrl}
-        alt={otherParticipant.nombre_completo}
+        alt={otherParticipant.name}
         className="w-12 h-12 rounded-full mr-4"
       />
       <div className="flex-1 min-w-0">
         <div className="flex justify-between">
-          <h3 className="font-semibold">{otherParticipant.nombre_completo}</h3>
+          <h3 className="font-semibold">{otherParticipant.name}</h3>
           <span className="text-xs text-gray-400">
             {new Date(lastMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </span>

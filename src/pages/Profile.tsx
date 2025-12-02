@@ -1,65 +1,58 @@
 import React from 'react';
-import { mockUsers } from '../data/mocks';
-import type { User } from '../types/user';
-
+import { useAuth } from '../hooks/useAuth';
 
 const UserProfile: React.FC = () => {
-  const user: User = mockUsers[0]; 
+  const { user } = useAuth();
+
+  if (!user) {
+    return <div className="text-center text-white text-lg">Loading profile...</div>;
+  }
 
   return (
-    <div className="bg-oxford-blue text-white min-h-screen p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-gray-800 rounded-lg shadow-lg p-8">
-          <div className="flex flex-col items-center md:flex-row md:items-start">
-            <img
-              src={user.avatarUrl}
-              alt="Avatar"
-              className="w-32 h-32 rounded-full border-4 border-gray-700"
-            />
-            <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-              <h1 className="text-3xl font-bold">{user.nombre_completo}</h1>
-              <p className="text-gray-400">@{user.nombre_usuario}</p>
-              {user.carrera && <p className="text-gray-400 mt-1">Carrera: {user.carrera}</p>}
-              {user.genero && <p className="text-gray-400">Género: {user.genero}</p>}
-              {user.fecha_nacimiento && <p className="text-gray-400">Fecha de Nacimiento: {user.fecha_nacimiento}</p>}
-            </div>
-            <div className="flex flex-col md:ml-auto mt-6 md:mt-0 space-y-2">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
-                Enviar Mensaje
-              </button>
-              <button className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">
-                Editar Perfil
-              </button>
-            </div>
-          </div>
+    <div className="max-w-4xl mx-auto p-6 bg-gray-800 rounded-lg shadow-xl mt-10">
+      <div className="flex items-center space-x-6">
+        <div className="relative w-28 h-28">
+          <img
+            src={user.avatarUrl || `https://ui-avatars.com/api/?name=${user.name}&background=random`}
+            alt={user.name}
+            className="w-full h-full rounded-full object-cover border-4 border-blue-500"
+          />
+        </div>
+        <div>
+          <h1 className="text-3xl font-bold text-white">{user.name}</h1>
+          <p className="text-gray-400 text-lg">@{user.name.replace(/\s+/g, '').toLowerCase()}</p> {/* Using name for username placeholder */}
+          {user.career && <p className="text-gray-400 mt-1">Career: {user.career}</p>}
+          {user.gender && <p className="text-gray-400">Gender: {user.gender}</p>}
+          {user.date_of_birth && <p className="text-gray-400">Date of Birth: {user.date_of_birth}</p>}
+        </div>
+      </div>
 
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold">Descripción</h2>
-            <p className="text-gray-300 mt-2">{user.descripcion}</p>
-          </div>
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">About Me</h2>
+        <p className="text-gray-300 mt-4">{user.bio || "No bio available."}</p>
+      </div>
 
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold">Habilidades</h2>
-            <div className="flex flex-wrap mt-2">
-              {user.habilidades.map((skill, index) => (
-                <span key={index} className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-
-
-          <div className="mt-8">
-            <h2 className="text-2xl font-semibold">Contacto</h2>
-            <p className="text-gray-300 mt-2">
-              <a href={`mailto:${user.correo_electronico}`} className="text-blue-400 hover:underline">
-                {user.correo_electronico}
-              </a>
-            </p>
+      {user.skills && user.skills.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">Skills</h2>
+          <div className="flex flex-wrap gap-2 mt-4">
+            {user.skills.map((skill: string, index: number) => (
+              <span key={index} className="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">
+                {skill}
+              </span>
+            ))}
           </div>
         </div>
+      )}
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">Contact</h2>
+        <p className="text-gray-300 mt-4">
+          Email:{" "}
+          <a href={`mailto:${user.email}`} className="text-blue-400 hover:underline">
+            {user.email}
+          </a>
+        </p>
       </div>
     </div>
   );
