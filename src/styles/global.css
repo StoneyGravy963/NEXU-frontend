@@ -20,7 +20,7 @@
 
 
 body {
-    background-color: var(--color-background);
+    background-color: var(--oxford-two);
     color: var(--color-text-default);
     transition: background-color 0.3s, color 0.3s; /* Transición suave de temas */
 }
