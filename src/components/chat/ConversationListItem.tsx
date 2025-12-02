@@ -30,7 +30,7 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
         alt={otherParticipant.nombre_completo}
         className="w-12 h-12 rounded-full mr-4"
       />
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         <div className="flex justify-between">
           <h3 className="font-semibold">{otherParticipant.nombre_completo}</h3>
           <span className="text-xs text-gray-400">
@@ -38,9 +38,9 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
           </span>
         </div>
         <div className="flex justify-between">
-          <p className="text-sm text-gray-400 truncate w-4/5">{lastMessage.text}</p>
+          <p className="text-sm text-gray-400 truncate">{lastMessage.text}</p>
           {conversation.unreadCount && conversation.unreadCount > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2 flex-shrink-0">
               {conversation.unreadCount}
             </span>
           )}
