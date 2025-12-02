@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import UserProfile from './pages/Profile';
 import ChatRoom from './pages/ChatRoom';
-import Home from './pages/Home'; // Assuming you have a Home component
+import Home from './pages/Home';
+import LoginSignup from './components/auth/LoginSignin';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
             <li>
               <Link to="/chat" className="hover:text-blue-400">Chats</Link>
             </li>
+            <li>
+              <Link to="/login" className="hover:text-blue-400">Login</Link>
+            </li>
           </ul>
         </nav>
 
@@ -26,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/chat" element={<ChatRoom />} />
+            <Route path="/login" element={<LoginSignup />} />
           </Routes>
         </main>
       </div>
