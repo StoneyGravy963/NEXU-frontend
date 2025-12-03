@@ -1,7 +1,7 @@
 import SignupPage from './pages/SignupPage';
 import LoginSignupPage from './pages/LoginSignupPage';
 import type { ReactElement } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import UserProfile from './pages/Profile';
@@ -67,7 +67,7 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
 function App() {
   return (
     <AuthProvider>
-     
+      
           <Routes>
             <Route path="/" element={
                 <PublicRoute>

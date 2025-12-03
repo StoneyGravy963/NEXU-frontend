@@ -2,7 +2,6 @@ import { useSignupForm } from "../hooks/useSignupForm";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SignupForm from "../components/signup/SignupForm";
-import { signupUser } from "../services/signupService";
 
 export default function SignupPage() {
   const form = useSignupForm();
