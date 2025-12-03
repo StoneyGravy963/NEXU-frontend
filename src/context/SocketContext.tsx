@@ -1,46 +1,59 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createSocket } from "../sockets/sockets";
+import { AuthContext } from "./AuthContext";
+import type { Socket } from "socket.io-client";
+
+interface Notification {
+  chat_id: string;
+  sender_id: string;
+  sender_name: string;
+  message: string;
+}
 
 interface SocketContextType {
   socket: Socket | null;
-  connected: boolean;
+  notifications: Notification[];
 }
 
-const SocketContext = createContext<SocketContextType>({ socket: null, connected: false });
+export const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
-export const useSocket = () => useContext(SocketContext);
+export const SocketProvider = ({ children }: { children: ReactNode }) => {
+  const { jwt } = useContext(AuthContext)!;
 
-export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [connected, setConnected] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || localStorage.getItem('access_token');
-    if (!token) return;
+    if (!jwt) return;
 
-    // Usar el parámetro 'auth' para enviar el token (sin 'Bearer')
-    const newSocket = io('http://localhost:5000', {
-      auth: { token },
-      transports: ['websocket'],
+    const s = createSocket(jwt);
+
+    s.connect();
+
+    s.on("connect", () => console.log("Socket conectado:", s.id));
+
+    s.on("message", (msg: string) => {
+      console.log("Mensaje del servidor:", msg);
     });
 
-    newSocket.on('connect', () => {
-      setConnected(true);
-      console.log('✅ Socket conectado');
-    });
-    newSocket.on('disconnect', () => {
-      setConnected(false);
-      console.log('❌ Socket desconectado');
+    s.on("new_notification", (data: Notification) => {
+      console.log("Nueva notificacion ha llegado!, Data:");
+      console.log(data);
+      setNotifications((prev) => [...prev, data]);
     });
 
-    setSocket(newSocket);
+    s.on("client_error", console.error);
+    s.on("server_error", console.error);
+
+    setSocket(s);
+
     return () => {
-      newSocket.close();
+      s.disconnect();
     };
-  }, []);
+  }, [jwt]);
 
   return (
-    <SocketContext.Provider value={{ socket, connected }}>
+    <SocketContext.Provider value={{ socket, notifications }}>
       {children}
     </SocketContext.Provider>
   );

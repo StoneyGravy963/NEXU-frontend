@@ -1,12 +1,34 @@
 import React, { useState } from 'react';
-
-const ChatInput: React.FC = () => {
+import { useChat } from '../../hooks/useChat'
+import type { ChatMessage } from '../../types/chat';
+interface props {
+  isFirst:boolean,
+  targetId: string,
+  onNewMessage: any
+}
+const ChatInput: React.FC<props> = ({ isFirst, targetId, onNewMessage }) => {
   const [text, setText] = useState('');
+  const { startChat, sendMessage } = useChat();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
       console.log('Mensaje enviado:', text);
+      if (isFirst){
+        console.log("usando el evento startChat")
+        startChat(targetId, text);
+      } else{
+        console.log("usando el evento dm")
+        sendMessage(targetId, text);
+      }
+      const message: ChatMessage = {
+        id: "878123871293",
+        authorId: "1",
+        text: text,
+        timestamp: new Date().toISOString()
+      }
+      onNewMessage(message)
+      
       setText('');
     }
   };

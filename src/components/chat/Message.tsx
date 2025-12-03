@@ -3,6 +3,7 @@ import type { ChatMessage } from '../../types/chat';
 
 interface MessageProps {
   message: ChatMessage;
+
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {

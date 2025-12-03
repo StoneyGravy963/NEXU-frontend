@@ -1,5 +1,5 @@
-import React from 'react';
-import type { ChatConversation } from '../../types/chat';
+import React, { useState } from 'react';
+import type { ChatMessage, ChatConversation } from '../../types/chat';
 import Message from './Message';
 import ChatInput from './ChatInput';
 
@@ -8,6 +8,12 @@ interface MessagePanelProps {
 }
 
 const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
+  const [messages, setMessages] = useState(conversation?.messages)
+  // TODO: manejar la manera en que se muestra un mensaje propio o de otro user de manera completamente diferente
+  const handleNewMessage = ( msg: ChatMessage) => {
+    setMessages((prev) => [...(prev ?? []), msg]);
+  }
+
   if (!conversation) {
     return (
       <div className="flex-1 flex items-center justify-center text-gray-400">
@@ -37,14 +43,14 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
 
       {/* Message Body */}
       <div className="flex-1 p-4 overflow-y-auto bg-gray-900">
-        {conversation.messages.map(msg => (
+        {messages?.map(msg => (
           <Message key={msg.id} message={msg} />
         ))}
       </div>
 
       {/* Chat Input */}
       <div className="p-4 bg-gray-800">
-        <ChatInput />
+        <ChatInput onNewMessage={handleNewMessage} isFirst={true} targetId='dd6e8497-550b-4951-a796-036ca00adac9' />
       </div>
     </div>
   );
