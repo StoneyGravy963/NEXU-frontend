@@ -12,11 +12,11 @@ export default function SignupPage() {
   const onSubmit = async () => {
     try {
       const wrappedHandleSignup = async () => {
-        await signup(form.email, form.password);
+        await signup({ name: form.fullName, email: form.instEmail, password: form.password });
       };
 
       await signupUser({
-        email: form.email,
+        email: form.instEmail,
         password: form.password,
         confirmPassword: form.confirmPassword,
         handleSignup: wrappedHandleSignup,
