@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
 
 @theme {
   --color-mint-500: oklch(0.72 0.11 178);
@@ -8,26 +8,15 @@
   --color-emerald: #13ce83;
   --color-primary: #DC3545;
 }
-:root {
 
-    --color-primary: #007BFF;
-    --color-secondary: #28A745;
-    --color-background: #FFFFFF;
-    --color-surface: #F8F9FA;
-    --color-text-default: #343A40;
-    --color-text-subtle: #6C757D;
-    --color-accent-error: #DC3545;
-    --oxford-blue: #050d31ff;
-    --oxford-two: rgb(3, 8, 30);
-    --midnight-green: #0b5457ff;
-    --zomp: rgb(9, 98, 79);
-    --emerald: rgb(16, 141, 91)
+:root{
+  --black: #000000;
+  --oxford-blue: #071028;
+  --oxford-two: #081735;
+  --midnight-green: #0f766e;
+  --emerald: #10b981;
+  --zomp: #39a2a6;
 }
-
-
-/* html, body {
-    overflow-x: hidden;
-} */
 
 body {
     background-color: var(--color-background);
@@ -40,3 +29,9 @@ body {
     background-color: var(--color-primary);
     color: var(--color-background); 
 }
+
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--oxford-blue); }
+::-webkit-scrollbar-thumb { background: var(--midnight-green); border-radius: 12px; }
+* { scrollbar-width: thin; scrollbar-color: var(--midnight-green) var(--oxford-blue); }

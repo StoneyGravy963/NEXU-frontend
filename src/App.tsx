@@ -1,3 +1,5 @@
+import SignupPage from './pages/SignupPage';
+import LoginSignupPage from './pages/LoginSignupPage';
 import type { ReactElement } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -6,7 +8,6 @@ import UserProfile from './pages/Profile';
 import UserView from './pages/UserView';
 import ChatRoom from './pages/ChatRoom';
 import Home from './pages/Home';
-import LoginSignup from './components/auth/LoginSignin';
 
 const ProtectedLayout = () => {
   const { user, logout } = useAuth();
@@ -66,11 +67,16 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+     
           <Routes>
-            <Route path="/login" element={
+            <Route path="/" element={
                 <PublicRoute>
-                    <LoginSignup />
+                    <LoginSignupPage />
+                </PublicRoute>
+            } />
+            <Route path="/signup" element={
+                <PublicRoute>
+                    <SignupPage />
                 </PublicRoute>
             } />
             
@@ -79,7 +85,7 @@ function App() {
                     <ProtectedLayout />
                 </ProtectedRoute>
             }>
-                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/profile/:userId" element={<UserView />} />
                 <Route path="/chat" element={<ChatRoom />} />
@@ -88,9 +94,11 @@ function App() {
              }
              <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-      </Router>
+     
     </AuthProvider>
   );
+   
 }
 
 export default App;
+
