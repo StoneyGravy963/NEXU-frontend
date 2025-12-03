@@ -17,7 +17,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations, sele
 
   return (
     <div className="flex flex-col h-full">
-      {/* Search Bar */}
+      {}
       <div className="p-4 border-b border-gray-700">
         <input
           type="text"
@@ -28,7 +28,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations, sele
         />
       </div>
 
-      {/* Conversation List */}
+      {}
       <div className="flex-1 overflow-y-auto">
         {filteredConversations.map(convo => (
           <ConversationListItem
