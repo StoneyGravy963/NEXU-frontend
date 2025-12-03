@@ -1,7 +1,7 @@
 import SignupPage from './pages/SignupPage';
 import LoginSignupPage from './pages/LoginSignupPage';
 import type { ReactElement } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import UserProfile from './pages/Profile';
@@ -15,7 +15,7 @@ const ProtectedLayout = () => {
     <div className="min-h-screen bg-gray-900 text-white">
       <nav className="bg-gray-800 p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
         <ul className="flex space-x-6">
-            <li><Link to="/" className="hover:text-blue-400 font-medium transition-colors">Inicio</Link></li>
+            <li><Link to="/home" className="hover:text-blue-400 font-medium transition-colors">Inicio</Link></li>
             <li><Link to="/profile" className="hover:text-blue-400 font-medium transition-colors">Perfil</Link></li>
             <li><Link to="/chat" className="hover:text-blue-400 font-medium transition-colors">Chats</Link></li>
         </ul>
@@ -44,7 +44,7 @@ const ProtectedRoute = ({ children }: { children: ReactElement }) => {
   }
   
   if (!isAuthenticated) {
-      return <Navigate to="/login" replace />;
+      return <Navigate to="/" replace />;
   }
 
   return children;
@@ -58,7 +58,7 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
    }
 
    if (isAuthenticated) {
-       return <Navigate to="/" replace />;
+       return <Navigate to="/home" replace />;
    }
    
    return children;
@@ -67,7 +67,7 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
 function App() {
   return (
     <AuthProvider>
-     
+      
           <Routes>
             <Route path="/" element={
                 <PublicRoute>
@@ -92,7 +92,7 @@ function App() {
             </Route>
              {
              }
-             <Route path="*" element={<Navigate to="/" replace />} />
+             <Route path="*" element={<Navigate to="/home" replace />} />
           </Routes>
      
     </AuthProvider>

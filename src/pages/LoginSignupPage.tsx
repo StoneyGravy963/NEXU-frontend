@@ -4,8 +4,6 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginForm } from "../hooks/useLoginForm";
 import { useAuth } from "../hooks/useAuth";
-import { loginService } from "../services/loginService";
-
 import LoginPanel from "../components/login/LoginPanel";
 import StartCta from "../components/misc/StartCta";
 import { LandingHero } from "../components/landing/LandingHero";
@@ -33,11 +31,7 @@ export default function LoginSignupPage() {
 
   const onLogin = async () => {
     try {
-      await loginService({
-        email: form.email,
-        password: form.password,
-        login: (email: string, password: string) => login({ email, password }),
-      });
+      await login({ email: form.email, password: form.password });
       navigate("/home");
     } catch (err) {
       if (err instanceof Error) {
