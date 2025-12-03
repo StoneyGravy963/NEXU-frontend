@@ -43,6 +43,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async (credentials: Pick<User, 'email' | 'password'>) => {
     try {
       const response: AuthResponse = await apiLogin(credentials);
+      if (!response || !response.access_token) {
+        throw new Error('No access token received from login');
+      }
       localStorage.setItem('token', response.access_token);
       const userData = await getProfile();
       setUser(userData);
@@ -56,6 +59,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const signup = async (userData: User) => {
     try {
       const response: AuthResponse = await apiSignup(userData);
+      if (!response || !response.access_token) {
+        throw new Error('No access token received from signup');
+      }
       localStorage.setItem('token', response.access_token);
       const profile = await getProfile();
       setUser(profile);

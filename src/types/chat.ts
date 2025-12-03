@@ -2,9 +2,9 @@ import type { User } from './user';
 
 export interface ChatMessage {
   id: string;
-  authorId: string; // Changed to string to match User.id
+  authorId: string; 
   text: string;
-  timestamp: string; // Changed to string for easier serialization/mocking
+  timestamp: string; 
 }
 
 export interface ChatConversation {

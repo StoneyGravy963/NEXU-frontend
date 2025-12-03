@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactElement } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
@@ -34,7 +34,7 @@ const ProtectedLayout = () => {
   );
 };
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: ReactElement }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
@@ -48,7 +48,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-const PublicRoute = ({ children }: { children: JSX.Element }) => {
+const PublicRoute = ({ children }: { children: ReactElement }) => {
    const { isAuthenticated, loading } = useAuth();
    
    if (loading) {
@@ -82,7 +82,8 @@ function App() {
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/chat" element={<ChatRoom />} />
             </Route>
-             {/* Redirect any unknown route to home (which will redirect to login if needed) */}
+             {
+             }
              <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
       </Router>
