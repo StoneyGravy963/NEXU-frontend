@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import type { ChatConversation } from '../../types/chat';
+// import type { ChatConversation } from '../../types/chat';
 import ConversationListItem from './ConversationListItem';
 
 interface ConversationListProps {
-  conversations: ChatConversation[];
-  selectedConversation: ChatConversation | null;
-  onSelectConversation: (conversation: ChatConversation) => void;
+  conversations: any[];
+  selectedConversation: any | null;
+  onSelectConversation: (conversation: any) => void;
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({ conversations, selectedConversation, onSelectConversation }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredConversations = conversations.filter(convo =>
-    convo.participants.some(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    convo.other_user && convo.other_user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

@@ -67,7 +67,6 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
 function App() {
   return (
     <AuthProvider>
-     
           <Routes>
             <Route path="/" element={
                 <PublicRoute>
