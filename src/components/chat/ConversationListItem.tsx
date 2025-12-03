@@ -8,12 +8,11 @@ interface ConversationListItemProps {
 }
 
 const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversation, isSelected, onSelect }) => {
-  // Assuming the current user is mockUsers[0] (id: 1), the other participant is the one we want to display.
   const otherParticipant = conversation.participants.find(p => p.id !== '1');
   const lastMessage = conversation.messages[conversation.messages.length - 1];
 
   if (!otherParticipant) {
-    return null; // Or some fallback UI
+    return null; 
   }
 
   return (

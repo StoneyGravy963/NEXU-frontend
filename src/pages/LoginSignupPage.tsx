@@ -33,11 +33,7 @@ export default function LoginSignupPage() {
 
   const onLogin = async () => {
     try {
-      await loginService({
-        email: form.email,
-        password: form.password,
-        login: (email: string, password: string) => login({ email, password }),
-      });
+      await login({ email: form.email, password: form.password });
       navigate("/home");
     } catch (err) {
       if (err instanceof Error) {

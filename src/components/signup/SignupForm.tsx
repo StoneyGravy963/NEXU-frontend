@@ -6,8 +6,6 @@ type Props = {
   setFullName: Dispatch<SetStateAction<string>>;
   instEmail: string;
   setInstEmail: Dispatch<SetStateAction<string>>;
-  email: string;
-  setEmail: Dispatch<SetStateAction<string>>;
   password: string;
   setPassword: Dispatch<SetStateAction<string>>;
   confirmPassword: string;
@@ -24,8 +22,6 @@ export default function SignupForm({
   setFullName,
   instEmail,
   setInstEmail,
-  email,
-  setEmail,
   password,
   setPassword,
   confirmPassword,
@@ -46,9 +42,6 @@ export default function SignupForm({
 
       <input type="email" placeholder="Correo institucional"
         value={instEmail} onChange={e => setInstEmail(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
-      <input type="email" placeholder="Correo de acceso"
-        value={email} onChange={e => setEmail(e.target.value)}
         className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
 
       <input type="password" placeholder="Contraseña"

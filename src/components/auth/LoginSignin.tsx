@@ -18,7 +18,7 @@ export default function LoginSignup() {
   const handleLogin = async () => {
     try {
       await login({ email, password });
-      navigate('/'); 
+      navigate('/home');
     } catch (error) {
       console.error(error);
       alert("Login failed. Please check your credentials.");
@@ -32,7 +32,7 @@ export default function LoginSignup() {
         return;
       }
       await signup({ name, email, password });
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error(error);
       alert("Signup failed. Please try again.");
