@@ -28,7 +28,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two)">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-oxford-blue to-oxford-two">
       <SignupForm {...form} onSubmit={onSubmit} />
     </div>
   );

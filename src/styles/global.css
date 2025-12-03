@@ -2,10 +2,11 @@
 
 @theme {
   --color-mint-500: oklch(0.72 0.11 178);
-  --color-oxford-blue: #050d31;
-  --color-midnight-green: #0b5457;
-  --color-zomp: #119b7d;
-  --color-emerald: #13ce83;
+  --color-oxford-blue: #071028;
+  --color-oxford-two: #081735;
+  --color-midnight-green: #0f766e;
+  --color-zomp: #39a2a6;
+  --color-emerald: #10b981;
   --color-primary: #DC3545;
 }
 

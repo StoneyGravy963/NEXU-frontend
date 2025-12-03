@@ -1,12 +1,31 @@
-import React from 'react';
+import { useAuth } from "../hooks/useAuth";
+import { FiSearch, FiHome, FiUser, FiMessageSquare } from "react-icons/fi";
+import { HomeHeader, } from "../components/home/HomeHeader";
+import { SearchBar } from "../components/home/SearchBar";
+import { PostCard } from "../components/home/PostCard";
+import MobileMenu from "../components/home/BottomNav";
 
-const Home: React.FC = () => {
+export default function Home() {
+  const { user } = useAuth();
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Bienvenido a NEXU</h1>
-      <p className="mt-4">Navega a la página de perfil o de chat para ver el contenido.</p>
+<div className="flex flex-col min-h-screen bg-oxford-blue text-white dark:bg-oxford-two">
+      
+      {/* HEADER */}
+      <HomeHeader username={user?.name || "Usuario"} />
+
+      {/* SEARCH BAR */}
+      <SearchBar />
+
+      {/* POSTS CONTAINER */}
+      <div className="flex flex-col gap-4 p-4 max-w-xl mx-auto w-full">
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </div>
+
+      {/* NAVBAR INFERIOR (solo móvil) */}
+      <MobileMenu />
     </div>
   );
-};
-
-export default Home;
+}
