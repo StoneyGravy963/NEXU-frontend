@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import type { ChatMessage, ChatConversation } from '../../types/chat';
 import Message from './Message';
 import ChatInput from './ChatInput';
+import { SocketContext } from '../../context/SocketContext';
 
 interface MessagePanelProps {
   conversation: ChatConversation | null;
@@ -9,8 +10,29 @@ interface MessagePanelProps {
 
 const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
   const [messages, setMessages] = useState(conversation?.messages)
+  const { socket } = useContext(SocketContext)!;
+  useEffect(() => {
+    if (!socket) return;
+
+    const handler = (data: any) => {
+      console.log("Notificacion recibida desde el MessagePanel");
+      console.log(data);
+      const newMessage: ChatMessage ={
+        id: "3456783456",
+        authorId: "2",
+        text: data.message,
+        timestamp: new Date().toISOString()
+      };
+      setMessages((prev) => [...(prev ?? []), newMessage]);
+    }
+    socket.on("new_notification", handler);
+
+    return () => { socket.off("new_notificacion", handler) };
+  }, [socket]);
+
+
   // TODO: manejar la manera en que se muestra un mensaje propio o de otro user de manera completamente diferente
-  const handleNewMessage = ( msg: ChatMessage) => {
+  const handleNewMessage = (msg: ChatMessage) => {
     setMessages((prev) => [...(prev ?? []), msg]);
   }
 
