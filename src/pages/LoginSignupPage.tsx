@@ -4,8 +4,6 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginForm } from "../hooks/useLoginForm";
 import { useAuth } from "../hooks/useAuth";
-import { loginService } from "../services/loginService";
-
 import LoginPanel from "../components/login/LoginPanel";
 import StartCta from "../components/misc/StartCta";
 import { LandingHero } from "../components/landing/LandingHero";

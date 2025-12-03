@@ -3,12 +3,13 @@ import type { ChatMessage } from '../../types/chat';
 
 interface MessageProps {
   message: ChatMessage;
-
+  currentUserId?: string;
 }
 
-const Message: React.FC<MessageProps> = ({ message }) => {
-  // Assuming the current user's ID is '1'
-  const isCurrentUser = message.authorId === '1';
+const Message: React.FC<MessageProps> = ({ message, currentUserId }) => {
+  // Comparar con el id real del usuario actual
+  console.log('Message authorId:', message.authorId, 'currentUserId:', currentUserId);
+  const isCurrentUser = String(message.authorId) === String(currentUserId);
 
   return (
     <div className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} mb-4`}>
