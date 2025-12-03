@@ -18,8 +18,6 @@ export default function LoginSignup() {
   const handleLogin = async () => {
     try {
       await login({ email, password });
-      // Navigation is handled by the PublicRoute wrapper in App.tsx, 
-      // but we can explicity navigate just in case or for clarity.
       navigate('/'); 
     } catch (error) {
       console.error(error);

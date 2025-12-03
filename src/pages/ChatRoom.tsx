@@ -14,7 +14,7 @@ const ChatRoom: React.FC = () => {
 
   return (
     <div className="flex h-[calc(100vh-120px)]">
-      {/* Left Panel: Conversation List */}
+      {}
       <div className="w-1/3 bg-gray-800 border-r border-gray-700">
         <ConversationList
           conversations={conversations}
@@ -23,7 +23,7 @@ const ChatRoom: React.FC = () => {
         />
       </div>
 
-      {/* Right Panel: Message Panel */}
+      {}
       <div className="w-2/3 flex flex-col">
         <MessagePanel conversation={selectedConversation} />
       </div>

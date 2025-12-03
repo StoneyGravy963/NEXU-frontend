@@ -3,7 +3,6 @@ import type { User, AuthResponse } from '../../types/user';
 
 export const login = async (credentials: Pick<User, 'email' | 'password'>): Promise<AuthResponse> => {
   const response = await api.post('/users/login', credentials);
-  // Backend wraps payload in { data: { access_token, token_type } }
   return response.data?.data as AuthResponse;
 };
 
@@ -14,6 +13,10 @@ export const signup = async (userData: User): Promise<AuthResponse> => {
 
 export const getProfile = async (): Promise<User> => {
   const response = await api.get('/users/me');
-  // Backend returns { data: <User> }
+  return response.data?.data as User;
+};
+
+export const getUserById = async (userId: string): Promise<User> => {
+  const response = await api.get(`/users/${userId}`);
   return response.data?.data as User;
 };

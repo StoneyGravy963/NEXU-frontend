@@ -4,8 +4,8 @@ import type { ChatConversation } from "../types/chat";
 export const mockUsers: User[] = [
   {
     id: '1',
-    name: "Alice Smith",
-    email: "alice@example.com",
+    name: "Jostino",
+    email: "Jostino@example.com",
     is_active: true,
     career: "Software Engineer",
     gender: "Female",
@@ -16,8 +16,8 @@ export const mockUsers: User[] = [
   },
   {
     id: '2',
-    name: "Bob Johnson",
-    email: "bob@example.com",
+    name: "Elias",
+    email: "Elias@example.com",
     is_active: true,
     career: "UX Designer",
     gender: "Male",
@@ -28,8 +28,8 @@ export const mockUsers: User[] = [
   },
   {
     id: '3',
-    name: "Charlie Brown",
-    email: "charlie@example.com",
+    name: "Sergio",
+    email: "Sergio@example.com",
     is_active: true,
     career: "Data Scientist",
     gender: "Male",
@@ -48,13 +48,13 @@ export const mockConversations: ChatConversation[] = [
       {
         id: "msg1",
         authorId: mockUsers[0].id!,
-        text: "Hi Bob, how's the UX design going?",
+        text: "ola",
         timestamp: "2023-10-26T10:00:00Z",
       },
       {
         id: "msg2",
         authorId: mockUsers[1].id!,
-        text: "Hey Alice! It's good, making progress on the new app. How about your coding?",
+        text: "ola popo",
         timestamp: "2023-10-26T10:05:00Z",
       },
     ],
@@ -67,13 +67,13 @@ export const mockConversations: ChatConversation[] = [
       {
         id: "msg3",
         authorId: mockUsers[0].id!,
-        text: "Hi Charlie, any new data insights?",
+        text: "El jajas",
         timestamp: "2023-10-26T11:00:00Z",
       },
       {
         id: "msg4",
         authorId: mockUsers[2].id!,
-        text: "Always! Just found something interesting about user behavior patterns.",
+        text: "Soy yo ese",
         timestamp: "2023-10-26T11:07:00Z",
       },
     ],

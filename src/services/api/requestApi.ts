@@ -9,11 +9,10 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to add the auth token header to requests
 api.interceptors.request.use(
   (config) => {
     let token = localStorage.getItem('token');
-    // Normalize token: avoid strings like 'undefined' or 'null'
+
     if (token === 'undefined' || token === 'null') {
       localStorage.removeItem('token');
       token = null;

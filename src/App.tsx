@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from '
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import UserProfile from './pages/Profile';
+import UserView from './pages/UserView';
 import ChatRoom from './pages/ChatRoom';
 import Home from './pages/Home';
 import LoginSignup from './components/auth/LoginSignin';
@@ -80,6 +81,7 @@ function App() {
             }>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/profile/:userId" element={<UserView />} />
                 <Route path="/chat" element={<ChatRoom />} />
             </Route>
              {
