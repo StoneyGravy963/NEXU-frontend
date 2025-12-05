@@ -42,8 +42,8 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
       setNotifications((prev) => [...prev, data]);
     });
 
-    s.on("client_error", console.error);
-    s.on("server_error", console.error);
+    s.on("client_error", console.log);
+    s.on("server_error", console.log);
 
     setSocket(s);
 

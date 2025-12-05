@@ -1,41 +1,69 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import Message from './Message';
-import ChatInput from './ChatInput';
-import { SocketContext } from '../../context/SocketContext';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import Message from "./Message";
+import ChatInput from "./ChatInput";
+import { SocketContext } from "../../context/SocketContext";
+import type { ChatMessage } from "../../types/chat";
 
 interface MessagePanelProps {
   conversation: any | null;
 }
 
 const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
-  const [messages, setMessages] = useState(conversation?.messages)
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { socket } = useContext(SocketContext)!;
+  const [convId, setConvId] =useState<string>("")
+  let band = false;
+  let band2 = false;
+  useEffect(() => {
+    if (!conversation) return;
+    console.log("Llegaron mensajes");
+    if (band) return;
+    const back_msg = (conversation?.messages || []).map((msg: any) => ({
+      id: msg.id,
+      authorId: msg.sender_id,
+      text: msg.content,
+      timestamp: msg.timestamp,
+    }));
+    setMessages(back_msg);
+    setConvId(conversation.id);
+    band = true
+
+  }, [conversation]);
+
   useEffect(() => {
     if (!socket) return;
-
+    if (band2) return;
+    band2 = true;    
     const handler = (data: any) => {
       console.log("Notificacion recibida desde el MessagePanel");
       console.log(data);
-      const newMessage: ChatMessage ={
-        id: "3456783456",
-        authorId: "2",
+      const newMessage: ChatMessage = {
+        id: data.id,
+        authorId: data.sender_id,
         text: data.message,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
       setMessages((prev) => [...(prev ?? []), newMessage]);
-    }
+    };
     socket.on("new_notification", handler);
 
-    return () => { socket.off("new_notificacion", handler) };
+    return () => {
+      socket.off("new_notificacion", handler);
+    };
   }, [socket]);
 
+  // Datyos de users desde el contexto
+  const otherUser = conversation.other_user;
+  const auth = useContext(AuthContext);
+  const user = auth?.user;
+  const currentUserId = user?.id;
 
-  // TODO: manejar la manera en que se muestra un mensaje propio o de otro user de manera completamente diferente
   const handleNewMessage = (msg: ChatMessage) => {
     setMessages((prev) => [...(prev ?? []), msg]);
-  }
+  };
 
+  // Fallback
   if (!conversation) {
     return (
       <div className="flex-1 flex items-center justify-center text-gray-400">
@@ -44,27 +72,6 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
     );
   }
 
-  const otherUser = conversation.other_user;
-  // Obtener el id del usuario actual desde el contexto de forma segura
-  const auth = useContext(AuthContext);
-  const user = auth?.user;
-  const currentUserId = user?.id;
-
-  console.log('MessagePanel - conversation:', conversation);
-  console.log('MessagePanel - conversation.messages:', conversation.messages);
-
-  // Mapear los mensajes del backend al tipo del frontend
-  const messages = (conversation.messages || []).map((msg: any) => ({
-    id: msg.id,
-    authorId: msg.sender_id,
-    text: msg.content,
-    timestamp: msg.timestamp,
-  }));
-
-  // Debug: Verificar el valor de currentUserId
-  console.log('currentUserId:', currentUserId);
-  console.log('Mapped messages:', messages);
-
   return (
     <div className="flex-1 flex flex-col">
       {/* Header */}
@@ -72,7 +79,10 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
         {otherUser && (
           <>
             <img
-              src={otherUser.avatar_url || `https://ui-avatars.com/api/?name=${otherUser.name}`}
+              src={
+                otherUser.avatar_url ||
+                `https://ui-avatars.com/api/?name=${otherUser.name}`
+              }
               alt={otherUser.name}
               className="w-10 h-10 rounded-full mr-4"
             />
@@ -88,13 +98,22 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
             <Message key={msg.id} message={msg} currentUserId={currentUserId} />
           ))
         ) : (
-          <div className="text-gray-400">No hay mensajes en esta conversación.</div>
+          <div className="text-gray-400">
+            No hay mensajes en esta conversación.
+          </div>
         )}
       </div>
 
       {/* Chat Input */}
       <div className="p-4 bg-gray-800">
-        <ChatInput onNewMessage={handleNewMessage} isFirst={true} targetId='dd6e8497-550b-4951-a796-036ca00adac9' />
+        <ChatInput
+          onNewMessage={handleNewMessage}
+          // TODO: Averiguar como ver cuando es first o no
+          isFirst={false}
+          userId={currentUserId}
+          targetId={otherUser}
+          chatId={convId}
+        />
       </div>
     </div>
   );

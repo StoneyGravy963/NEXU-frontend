@@ -8,7 +8,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ message, currentUserId }) => {
   // Comparar con el id real del usuario actual
-  console.log('Message authorId:', message.authorId, 'currentUserId:', currentUserId);
+  // console.log('Message authorId:', message.authorId, 'currentUserId:', currentUserId);
   const isCurrentUser = String(message.authorId) === String(currentUserId);
 
   return (

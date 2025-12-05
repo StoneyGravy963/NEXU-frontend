@@ -33,6 +33,7 @@ const ChatRoom: React.FC = () => {
     const fetchMessages = async () => {
       if (selectedConversation) {
         try {
+          console.log(selectedConversation)
           const response = await getMessages(selectedConversation.id);
           console.log('Response from getMessages:', response);
           const msgs = response?.data || [];
@@ -73,7 +74,8 @@ const ChatRoom: React.FC = () => {
         <MessagePanel
           conversation={selectedConversation ? {
             other_user: selectedConversation.other_user,
-            messages: messages
+            messages: messages,
+            id: selectedConversation.id,
           } : null}
         />
       </div>

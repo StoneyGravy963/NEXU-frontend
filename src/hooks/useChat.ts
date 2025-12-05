@@ -13,6 +13,7 @@ export const useChat = () => {
   
   const sendMessage = (chatId: string, content: string) => {
     console.log("Enviando evento dm con chatId:" + chatId + " y content: " + content)
+    if (!socket) console.log("SOCKET NO ENCONTRADO");
     socket?.emit("dm", { target_id: chatId, content });
   };
 
