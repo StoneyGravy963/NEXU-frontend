@@ -2,24 +2,47 @@
 
 @theme {
   --color-mint-500: oklch(0.72 0.11 178);
-  --color-oxford-blue: #050d31;
-  --color-midnight-green: #0b5457;
-  --color-zomp: #119b7d;
-  --color-emerald: #13ce83;
+  --color-oxford-blue: #071028;
+  --color-oxford-two: #081735;
+  --color-midnight-green: #0f766e;
+  --color-zomp: #39a2a6;
+  --color-emerald: #10b981;
   --color-primary: #DC3545;
+
+  --color-light-bg-start: var(--bg-start);
+  --color-light-bg-end: var(--bg-end);
+  --color-light-text: var(--light-text);
+  --color-light-secondary-text: var(--light-secondary-text);
+  --color-light-button: var(--light-button);
 }
 
-:root{
-  --black: #000000;
-  --oxford-blue: #071028;
-  --oxford-two: #081735;
-  --midnight-green: #0f766e;
-  --emerald: #10b981;
-  --zomp: #39a2a6;
+:root {
+  --bg: #E6EAF6;
+  --bg-alt: #F8E7EE;
+  --text: #132E63;
+  --text-secondary: #263A6A;
+  --button: #1B2F80;
+  background: var(--color-oxford-blue);
 }
+
+/* DARK THEME */
+.dark {
+  --bg: #071028;
+  --bg-alt: #07132c;
+  --text: #ffffff;
+  --text-secondary: #39a2a6;
+  --button: #10b981;
+}
+
+/* Conecta las variables a Tailwind */
+.bg-theme     { background-color: var(--bg); }
+.bg-theme-alt { background-color: var(--bg-alt); }
+.text-theme   { color: var(--text); }
+.text-theme-2 { color: var(--text-secondary); }
+.btn-theme    { background-color: var(--button); color: white; }
 
 body {
-    background-color: var(--color-background);
+    background-color: var(--oxford-blue);
     color: var(--color-text-default);
     transition: background-color 0.3s, color 0.3s; 
 }

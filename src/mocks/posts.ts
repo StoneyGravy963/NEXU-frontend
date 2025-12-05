@@ -1,0 +1,58 @@
+export const mockPosts = [
+  {
+    id: 1,
+    nombre: "Ana López",
+    carrera: "Ingeniería en Sistemas",
+    categoria: "Tecnología",
+    contenido: "Busco compañeros para proyecto de bases de datos.",
+  },
+  {
+    id: 2,
+    nombre: "Carlos Rivera",
+    carrera: "Arquitectura",
+    categoria: "Arte",
+    contenido: "Compartiendo mis nuevos planos y renders.",
+  },
+  {
+    id: 3,
+    nombre: "María Hernández",
+    carrera: "Psicología",
+    categoria: "Bienestar",
+    contenido: "Consejos rápidos para manejar estrés durante exámenes.",
+  },
+  {
+    id: 4,
+    nombre: "Luis Gómez",
+    carrera: "Ingeniería Civil",
+    categoria: "Construcción",
+    contenido: "Avances del puente en maqueta del proyecto final.",
+  },
+  {
+    id: 5,
+    nombre: "Fernanda Ruiz",
+    carrera: "Negocios Internacionales",
+    categoria: "Emprendimiento",
+    contenido: "Busco ideas para iniciar negocio de ropa personalizada.",
+  },
+  {
+    id: 6,
+    nombre: "Javier Morales",
+    carrera: "Música",
+    categoria: "Música",
+    contenido: "Busco vocalista para banda de rock estudiantil.",
+  },
+  {
+    id: 7,
+    nombre: "Sofía Martínez",
+    carrera: "Diseño Gráfico",
+    categoria: "Arte",
+    contenido: "Mis nuevas ilustraciones digitales 🎨.",
+  },
+  {
+    id: 8,
+    nombre: "Diego Castro",
+    carrera: "Medicina",
+    categoria: "Salud",
+    contenido: "Tips básicos para mejorar hábitos de sueño.",
+  },
+];

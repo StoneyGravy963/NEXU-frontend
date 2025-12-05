@@ -38,21 +38,21 @@ export default function SignupForm({
 
       <input type="text" placeholder="Nombre completo"
         value={fullName} onChange={e => setFullName(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300" />
 
       <input type="email" placeholder="Correo institucional"
         value={instEmail} onChange={e => setInstEmail(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300" />
 
       <input type="password" placeholder="Contraseña"
         value={password} onChange={e => setPassword(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300" />
       <input type="password" placeholder="Confirmar contraseña"
         value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300" />
 
       <select value={gender} onChange={e => setGender(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300">
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300">
         <option value="">Selecciona tu género</option>
         <option value="Male">Masculino</option>
         <option value="Female">Femenino</option>
@@ -61,9 +61,9 @@ export default function SignupForm({
 
       <input type="date"
         value={birthDate} onChange={e => setBirthDate(e.target.value)}
-        className="w-full mb-4 p-2 rounded bg-(--oxford-blue) bg-opacity-50 text-white placeholder-gray-300" />
+        className="w-full mb-4 p-2 rounded bg-oxford-blue bg-opacity-50 text-white placeholder-gray-300" />
 
-      <button onClick={onSubmit} className="w-full mt-4 bg-(--zomp) text-white py-2 rounded hover:bg-(--emerald) transition-colors">
+      <button onClick={onSubmit} className="w-full mt-4 bg-zomp text-white py-2 rounded hover:bg-emerald transition-colors">
         Crear Cuenta
       </button>
     </div>
