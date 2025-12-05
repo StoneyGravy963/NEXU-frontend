@@ -10,72 +10,54 @@ interface MessagePanelProps {
 }
 
 const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { socket } = useContext(SocketContext)!;
-  const [convId, setConvId] =useState<string>("")
-  let band = false;
-  let band2 = false;
-  useEffect(() => {
-    if (!conversation) return;
-    console.log("Llegaron mensajes");
-    if (band) return;
-    const back_msg = (conversation?.messages || []).map((msg: any) => ({
-      id: msg.id,
-      authorId: msg.sender_id,
-      text: msg.content,
-      timestamp: msg.timestamp,
-    }));
-    setMessages(back_msg);
-    setConvId(conversation.id);
-    band = true
+  const [newMessages, setNewMessages] = useState<ChatMessage[]>([]);
 
-  }, [conversation]);
+  // Mapear mensajes que vienen del backend
+  const mappedMessages = (conversation?.messages || []).map((msg: any) => ({
+    id: msg.id,
+    authorId: msg.sender_id,
+    text: msg.content,
+    timestamp: msg.timestamp,
+  })) as ChatMessage[];
 
+  // Combinar mensajes del backend + mensajes nuevos en tiempo real
+  const allMessages = [...mappedMessages, ...newMessages];
+
+  // Socket listener para nuevos mensajes en tiempo real
   useEffect(() => {
     if (!socket) return;
-    if (band2) return;
-    band2 = true;    
+
     const handler = (data: any) => {
-      console.log("Notificacion recibida desde el MessagePanel");
-      console.log(data);
       const newMessage: ChatMessage = {
         id: data.id,
         authorId: data.sender_id,
         text: data.message,
         timestamp: new Date().toISOString(),
       };
-      setMessages((prev) => [...(prev ?? []), newMessage]);
+      setNewMessages((prev) => [...prev, newMessage]);
     };
-    socket.on("new_notification", handler);
 
+    socket.on("new_notification", handler);
     return () => {
-      socket.off("new_notificacion", handler);
+      socket.off("new_notification", handler);
     };
   }, [socket]);
 
-  // Datyos de users desde el contexto
-  const otherUser = conversation.other_user;
+  // Datos del usuario desde el contexto
+  const otherUser = conversation?.other_user;
   const auth = useContext(AuthContext);
   const user = auth?.user;
   const currentUserId = user?.id;
 
   const handleNewMessage = (msg: ChatMessage) => {
-    setMessages((prev) => [...(prev ?? []), msg]);
+    setNewMessages((prev) => [...prev, msg]);
   };
 
-  // Fallback
-  if (!conversation) {
-    return (
-      <div className="flex-1 flex items-center justify-center text-gray-400">
-        Selecciona una conversación para empezar a chatear.
-      </div>
-    );
-  }
-
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center p-4 bg-gray-800 border-b border-gray-700">
+      <div className="flex items-center p-4 bg-gray-800 border-b border-gray-700 flex-shrink-0">
         {otherUser && (
           <>
             <img
@@ -91,10 +73,10 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
         )}
       </div>
 
-      {/* Message Body */}
-      <div className="flex-1 p-4 overflow-y-auto bg-gray-900">
-        {messages.length > 0 ? (
-          messages.map((msg: any) => (
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto bg-gray-900 p-4">
+        {allMessages.length > 0 ? (
+          allMessages.map((msg: any) => (
             <Message key={msg.id} message={msg} currentUserId={currentUserId} />
           ))
         ) : (
@@ -105,14 +87,13 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
       </div>
 
       {/* Chat Input */}
-      <div className="p-4 bg-gray-800">
+      <div className="p-4 bg-gray-800 border-t border-gray-700 flex-shrink-0">
         <ChatInput
           onNewMessage={handleNewMessage}
-          // TODO: Averiguar como ver cuando es first o no
           isFirst={false}
           userId={currentUserId}
           targetId={otherUser}
-          chatId={convId}
+          chatId={conversation?.id}
         />
       </div>
     </div>

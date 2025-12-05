@@ -33,11 +33,8 @@ const ChatRoom: React.FC = () => {
     const fetchMessages = async () => {
       if (selectedConversation) {
         try {
-          console.log(selectedConversation)
           const response = await getMessages(selectedConversation.id);
-          console.log('Response from getMessages:', response);
           const msgs = response?.data || [];
-          console.log('Messages extracted:', msgs);
           setMessages(msgs);
         } catch (err) {
           console.error('Error fetching messages:', err);
@@ -63,14 +60,14 @@ const ChatRoom: React.FC = () => {
 
   return (
     <div className="flex h-[calc(100vh-120px)]">
-      <div className="w-1/3 bg-gray-800 border-r border-gray-700">
+      <div className="w-1/3 bg-gray-800 border-r border-gray-700 overflow-hidden">
         <ConversationList
           conversations={conversations}
           selectedConversation={selectedConversation}
           onSelectConversation={handleSelectConversation}
         />
       </div>
-      <div className="w-2/3 flex flex-col">
+      <div className="w-2/3 flex flex-col overflow-hidden">
         <MessagePanel
           conversation={selectedConversation ? {
             other_user: selectedConversation.other_user,
