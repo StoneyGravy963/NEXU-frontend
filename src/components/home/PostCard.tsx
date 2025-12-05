@@ -1,26 +1,47 @@
-export function PostCard() {
-  return (
-    <div className="bg-oxford-two dark:bg-oxford-blue text-white shadow-md rounded-xl p-4 transition-colors">
+interface PostCardProps {
+  nombre: string;
+  carrera: string;
+  categoria: string;
+  contenido: string;
+}
 
-      {/* HEADER */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-gray-300 rounded-full" />
+export function PostCard({ nombre, carrera, categoria, contenido }: PostCardProps) {
+  return (
+    <div
+      className="
+        bg-theme-alt p-4 rounded-xl shadow-md 
+        transition-colors
+      "
+    >
+      {/* Header */}
+      <div className="flex justify-between items-center mb-3">
+        
+        {/* Usuario */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full" />
+
           <div className="flex flex-col">
-            <span className="font-semibold">Nombre</span>
-            <span className="text-xs text-gray-500">Carrera</span>
+            <span className="text-lg font-semibold text-theme">{nombre}</span>
+            <span className="text-theme-2 text-sm">{carrera}</span>
           </div>
         </div>
 
-        <span className="text-sm bg-blue-100 text-blue-600 px-3 py-1 rounded-full">
-          Música
+        {/* Categoría */}
+        <span
+          className="
+            text-xs 
+            bg-emerald/20 text-emerald 
+            px-3 py-1 rounded-full
+            font-medium
+          "
+        >
+          {categoria}
         </span>
       </div>
 
-      {/* CONTENIDO */}
-      <p className="text-gray-700">
-        Texto textoo textoo textooooo <br />
-        aaaaaaaaaaaaaaaaaaa
+      {/* Contenido */}
+      <p className="text-theme leading-relaxed">
+        {contenido}
       </p>
     </div>
   );

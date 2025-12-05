@@ -1,65 +1,15 @@
 import SignupPage from "./pages/SignupPage";
 import LoginSignupPage from "./pages/LoginSignupPage";
 import type { ReactElement } from "react";
-import { Routes, Route, Link, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 import UserProfile from "./pages/Profile";
 import UserView from "./pages/UserView";
 import ChatRoom from "./pages/ChatRoom";
 import Home from "./pages/Home";
-import ThemeToggle from "./components/resources/ThemeToggle";
-
-const ProtectedLayout = () => {
-  const { user, logout } = useAuth();
-  return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <nav className="bg-gray-800 p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
-        <ul className="flex space-x-6">
-          <li>
-            <Link
-              to="/home"
-              className="hover:text-blue-400 font-medium transition-colors"
-            >
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/profile"
-              className="hover:text-blue-400 font-medium transition-colors"
-            >
-              Perfil
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/chat"
-              className="hover:text-blue-400 font-medium transition-colors"
-            >
-              Chats
-            </Link>
-          </li>
-        </ul>
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-          {user && (
-            <span className="text-gray-200 font-semibold">
-              Hola, {user.name}
-            </span>
-          )}
-          <button onClick={logout} className="bg-primary px-4 py-2 rounded">
-            Logout
-          </button>
-        </div>
-
-      </nav>
-      <main className="p-8">
-        <Outlet />
-      </main>
-    </div>
-  );
-};
+import { ThemeProvider } from "./context/ThemeContext";
+import ProtectedLayout from "./components/resources/ProtectedLyout";
 
 const ProtectedRoute = ({ children }: { children: ReactElement }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -100,6 +50,7 @@ const PublicRoute = ({ children }: { children: ReactElement }) => {
 function App() {
   return (
     <AuthProvider>
+     <ThemeProvider>
       <Routes>
         <Route
           path="/"
@@ -133,6 +84,7 @@ function App() {
         {}
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
+      </ThemeProvider>
     </AuthProvider>
   );
 }
