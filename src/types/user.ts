@@ -10,8 +10,8 @@ export interface User {
   bio?: string;          
   skills?: string[];     
   avatarUrl?: string;
-  tags?: Tag[];          
-  tag_ids?: string[];    
+  tags?: string[];       // Array de nombres de tags (ej: ["Programación", "Diseño"])
+  tag_ids?: string[];    // Array de IDs de tags para envíar al backend
 }
 
 export interface Tag {

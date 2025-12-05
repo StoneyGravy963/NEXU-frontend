@@ -34,8 +34,8 @@ const UserProfile: React.FC = () => {
     return <div className="text-center text-white text-lg">Cargando Perfil...</div>;
   }
 
-  // Mostrar tags si existen, sino mostrar skills (retrocompatibilidad)
-  const displayTags = user.tags?.map(tag => tag.name) || user.skills || [];
+  // Backend devuelve tags como array de strings: ["Programación", "Diseño"]
+  const displayTags = user.tags || user.skills || [];
 
   return (
     <>
