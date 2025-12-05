@@ -33,10 +33,7 @@ export const getUserById = async (userId: string): Promise<User> => {
 };
 
 export const updateProfile = async (profileData: UpdateProfileData): Promise<User> => {
-  console.log('🔵 userApi.updateProfile - Enviando:', profileData);
   const response = await api.put('/users/me', profileData);
-  console.log('🔵 userApi.updateProfile - Respuesta completa:', response.data);
-  console.log('🔵 userApi.updateProfile - Usuario recibido:', response.data?.data);
   return transformUserData(response.data?.data);
 };
 
