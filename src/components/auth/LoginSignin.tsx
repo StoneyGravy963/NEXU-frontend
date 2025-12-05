@@ -32,7 +32,10 @@ export default function LoginSignup() {
         return;
       }
       await signup({ name, email, password });
-      navigate('/home');
+      // Pequeño delay para que React procese el estado de autenticación
+      setTimeout(() => {
+        navigate('/profile?edit=true', { replace: true });
+      }, 100);
     } catch (error) {
       console.error(error);
       alert("Signup failed. Please try again.");

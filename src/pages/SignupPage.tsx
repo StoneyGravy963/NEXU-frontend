@@ -18,7 +18,9 @@ export default function SignupPage() {
         gender: form.gender,
         date_of_birth: form.birthDate,
       });
-      navigate("/home");
+      setTimeout(() => {
+        navigate("/profile?edit=true", { replace: true });
+      }, 100);
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
