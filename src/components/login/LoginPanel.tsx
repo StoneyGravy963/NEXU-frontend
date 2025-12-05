@@ -35,14 +35,14 @@ export default function LoginPanel({
       />
       <button
         onClick={onLogin}
-        className="w-full py-3 rounded-md bg-(--midnight-green) hover:bg-(--emerald) transition"
+        className="w-full py-3 rounded-md bg-midnight-green hover:bg-emerald transition"
       >
         Login
       </button>
 
       <button
         onClick={onSignupNavigate}
-        className="w-full mt-3 py-3 rounded-md bg-(--zomp) hover:bg-(--emerald) transition"
+        className="w-full mt-3 py-3 rounded-md bg-zomp hover:bg-emerald transition"
       >
         Sign Up
       </button>

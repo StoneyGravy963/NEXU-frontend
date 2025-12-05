@@ -1,5 +1,4 @@
 
-/* Simple decorative shapes that are responsive */
 export default function DecorShapes() {
   return (
     <>

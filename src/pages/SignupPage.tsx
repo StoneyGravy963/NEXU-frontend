@@ -2,6 +2,7 @@ import { useSignupForm } from "../hooks/useSignupForm";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import SignupForm from "../components/signup/SignupForm";
+import { ArrowBack } from "../components/resources/ArrowBack";
 
 export default function SignupPage() {
   const form = useSignupForm();
@@ -28,7 +29,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two)">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-oxford-blue to-oxford-two">
+      <ArrowBack  />
       <SignupForm {...form} onSubmit={onSubmit} />
     </div>
   );

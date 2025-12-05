@@ -46,7 +46,7 @@ export default function LoginSignupPage() {
     <Parallax
       pages={2.1}
       ref={ref}
-      className="h-screen w-screen bg-linear-to-b from-(--oxford-blue) to-(--oxford-two)"
+      className="h-screen w-screen bg-linear-to-b from-oxford-blue to-oxford-two"
     >
       <DecorShapes />
       <ParallaxLayer

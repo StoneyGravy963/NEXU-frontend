@@ -1,12 +1,43 @@
-import React from 'react';
+import { useAuth } from "../hooks/useAuth";
+import { HomeHeader } from "../components/home/HomeHeader";
+import { SearchBar } from "../components/home/SearchBar";
+import { PostCard } from "../components/home/PostCard";
+import MobileMenu from "../components/home/BottomNav";
+import { mockPosts } from "../mocks/posts";
+import { useState } from "react";
 
-const Home: React.FC = () => {
+export default function Home() {
+  const { user } = useAuth();
+  const [search, setSearch] = useState("");
+
+  // 🔍 FILTRO — busca por: categoría, nombre, carrera o contenido
+  const filteredPosts = mockPosts.filter((post) => {
+    const text = search.toLowerCase();
+    return (
+      post.categoria.toLowerCase().includes(text)
+    );
+  });
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Bienvenido a NEXU</h1>
-      <p className="mt-4">Navega a la página de perfil o de chat para ver el contenido.</p>
+    <div className="flex flex-col min-h-screen bg-theme text-theme transition-colors">
+      {/* HEADER */}
+      <HomeHeader username={user?.name || "Usuario"} />
+
+      {/* SEARCH BAR */}
+      <SearchBar onSearchChange={setSearch} />
+
+      {/* POSTS */}
+      {filteredPosts.map((post) => (
+        <PostCard
+          key={post.id}
+          nombre={post.nombre}
+          carrera={post.carrera}
+          categoria={post.categoria}
+          contenido={post.contenido}
+        />
+      ))}
+
+      {/* NAVBAR INFERIOR (solo móvil) */}
+      <MobileMenu />
     </div>
   );
-};
-
-export default Home;
+}
