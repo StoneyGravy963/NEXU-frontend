@@ -1,5 +1,16 @@
 import api from './requestApi';
-import type { User, AuthResponse } from '../../types/user';
+import type { User, AuthResponse, UpdateProfileData, Tag } from '../../types/user';
+
+// Helper para transformar campos del backend (snake_case) a camelCase
+const transformUserData = (data: any): User => {
+  return {
+    ...data,
+    avatarUrl: data.avatar_url || data.avatarUrl,
+    tag_ids: data.tag_ids,
+    date_of_birth: data.date_of_birth,
+    is_active: data.is_active,
+  };
+};
 
 export const login = async (credentials: Pick<User, 'email' | 'password'>): Promise<AuthResponse> => {
   const response = await api.post('/users/login', credentials);
@@ -13,10 +24,35 @@ export const signup = async (userData: User): Promise<AuthResponse> => {
 
 export const getProfile = async (): Promise<User> => {
   const response = await api.get('/users/me');
-  return response.data?.data as User;
+  return transformUserData(response.data?.data);
 };
 
 export const getUserById = async (userId: string): Promise<User> => {
   const response = await api.get(`/users/${userId}`);
-  return response.data?.data as User;
+  return transformUserData(response.data?.data);
+};
+
+export const updateProfile = async (profileData: UpdateProfileData): Promise<User> => {
+  console.log('🔵 userApi.updateProfile - Enviando:', profileData);
+  const response = await api.put('/users/me', profileData);
+  console.log('🔵 userApi.updateProfile - Respuesta completa:', response.data);
+  console.log('🔵 userApi.updateProfile - Usuario recibido:', response.data?.data);
+  return transformUserData(response.data?.data);
+};
+
+export const uploadAvatar = async (file: File): Promise<User> => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+  
+  const response = await api.post('/users/upload_avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return transformUserData(response.data?.data);
+};
+
+export const getTags = async (): Promise<Tag[]> => {
+  const response = await api.get('/tags/');
+  return response.data?.data as Tag[];
 };
