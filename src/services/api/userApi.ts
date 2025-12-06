@@ -53,3 +53,20 @@ export const getTags = async (): Promise<Tag[]> => {
   const response = await api.get('/tags/');
   return response.data?.data as Tag[];
 };
+
+export const getPostsByUser = async (userId: string): Promise<any[]> => {
+  const response = await api.get(`/posts/user/${userId}`);
+  return response.data?.data as any[];
+}
+
+export const createPost = async (postData: { tag_id: string; description: string }) => {
+  const response = await api.post('/posts/', postData);
+  return response.data?.data;
+};
+
+export const getAllPosts = async (tagId?: string): Promise<any[]> => {
+  const response = await api.get('/posts/', {
+    params: tagId ? { filter: tagId } : {}
+  });
+  return response.data?.data as any[];
+};
