@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { CreatePostModal } from "../resources/CreatePostModal";
 
-export function HomeHeader({ username, avatar_url }: { username: string; avatar_url: string }) {
+interface HomeHeaderProps {
+  username: string;
+  avatar_url: string;
+  onPostCreated: (newPost: any) => void;
+}
+
+export function HomeHeader({ username, avatar_url, onPostCreated }: HomeHeaderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
@@ -9,6 +15,7 @@ export function HomeHeader({ username, avatar_url }: { username: string; avatar_
       <CreatePostModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onPostCreated={onPostCreated}
       />
 
       {/* HEADER */}

@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { usePosts } from "../hooks/usePosts";
 import { getTags } from "../services/api/userApi";
 import type { Tag } from "../types/user";
 import { PostCard } from "../components/home/PostCard";
+import React from "react";
 
-export default function Feed() {
-  const { posts, loading, filterTag, setFilterTag } = usePosts();
+interface FeedProps {
+  posts: any[];
+  setPosts: React.Dispatch<React.SetStateAction<any[]>>;
+  loading: boolean;
+  filterTag: string;
+  setFilterTag: (tag: string) => void;
+  reload: () => void;
+}
+
+export default function Feed({ posts, setPosts, loading, filterTag, setFilterTag, reload }: FeedProps) {
   const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
