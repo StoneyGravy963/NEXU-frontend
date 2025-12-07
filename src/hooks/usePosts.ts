@@ -22,6 +22,7 @@ export function usePosts() {
 
   return {
     posts,
+    setPosts, // Export setPosts
     loading,
     filterTag,
     setFilterTag,

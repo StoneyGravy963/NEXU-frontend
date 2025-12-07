@@ -3,6 +3,9 @@ import { useAuth } from '../hooks/useAuth';
 import { useSearchParams } from 'react-router-dom';
 import EditProfileModal from '../components/profile/EditProfileModal';
 import type { User } from '../types/user';
+import { useUserPosts } from '../hooks/useUserPosts';
+import { PostCard } from '../components/home/PostCard';
+import { deletePost } from '../services/api/userApi';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -26,6 +29,7 @@ const UserProfile: React.FC = () => {
   const { user, updateUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { posts, setPosts, loading: loadingPosts } = useUserPosts(user?.id);
 
   useEffect(() => {
     if (searchParams.get('edit') === 'true') {
@@ -37,6 +41,16 @@ const UserProfile: React.FC = () => {
 
   const handleProfileUpdated = (updatedUser: User) => {
     updateUser(updatedUser);
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      await deletePost(postId);
+      setPosts((currentPosts) => currentPosts.filter((p) => p.id !== postId));
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      alert('Error al eliminar el post. Inténtalo de nuevo.');
+    }
   };
 
   if (!user) {
@@ -97,6 +111,28 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Sección de Posts */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">Posts</h2>
+          <div className="mt-4 flex flex-col gap-4">
+            {loadingPosts ? (
+              <p className="text-gray-400">Cargando posts...</p>
+            ) : posts.length > 0 ? (
+              posts.map((post) => (
+                <PostCard 
+                  key={post.id} 
+                  post={post} 
+                  disableProfileLink={true}
+                  isOwner={true}
+                  onDelete={handleDeletePost}
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>
+            )}
+          </div>
+        </div>
 
         <div className="mt-8">
           <h2 className="text-2xl font-semibold text-theme border-b border-theme-2 pb-2">Contacto</h2>

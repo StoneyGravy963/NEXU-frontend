@@ -54,14 +54,14 @@ export const getTags = async (): Promise<Tag[]> => {
   return response.data?.data as Tag[];
 };
 
-export const getPostsByUser = async (userId: string): Promise<any[]> => {
-  const response = await api.get(`/posts/user/${userId}`);
-  return response.data?.data as any[];
-}
-
 export const createPost = async (postData: { tag_id: string; description: string }) => {
   const response = await api.post('/posts/', postData);
   return response.data?.data;
+};
+
+export const deletePost = async (postId: string) => {
+  const response = await api.delete(`/posts/${postId}`);
+  return response.data;
 };
 
 export const getAllPosts = async (tagId?: string): Promise<any[]> => {

@@ -5,9 +5,10 @@ import type { Tag } from '../../types/user';
 interface CreatePostModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onPostCreated: (newPost: any) => void;
 }
 
-export function CreatePostModal({ isOpen, onClose }: CreatePostModalProps) {
+export function CreatePostModal({ isOpen, onClose, onPostCreated }: CreatePostModalProps) {
   const [availableTags, setAvailableTags] = useState<Tag[]>([]);
   const [selectedTag, setSelectedTag] = useState<string>("");
   const [description, setDescription] = useState("");
@@ -35,11 +36,21 @@ export function CreatePostModal({ isOpen, onClose }: CreatePostModalProps) {
     }
 
     try {
-      await createPost({
+      const newPost = await createPost({
         tag_id: selectedTag,
         description
       });
 
+      // Find the selected tag object
+      const fullTag = availableTags.find(t => t.id === selectedTag);
+      
+      // Enrich post with tag info for immediate display
+      const postWithTag = {
+        ...newPost,
+        tag: fullTag || { id: selectedTag, name: "General" }
+      };
+
+      onPostCreated(postWithTag); // Notificar al padre con el nuevo post enriquecido
       onClose(); // cerrar modal
       setDescription("");
       setSelectedTag("");
