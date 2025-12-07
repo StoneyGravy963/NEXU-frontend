@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { usePosts } from "../hooks/usePosts";
 import { getTags } from "../services/api/userApi";
 import type { Tag } from "../types/user";
@@ -51,16 +52,17 @@ export default function Feed() {
             <div className="flex flex-row justify-between">
               {/* Header */}
               <div className="">
-                <div className="flex items-center gap-3 mb-2">
+                <Link to={`/profile/${post.user.id}`} className="flex items-center gap-3 mb-2 hover:opacity-80 transition-opacity">
                   <img
                     src={post.user.avatar_url}
                     className="w-10 h-10 rounded-full object-cover"
+                    alt={post.user.name}
                   />
                   <div>
-                    <p className="font-semibold text-theme">{post.user.name}</p>
+                    <p className="font-semibold text-theme hover:underline">{post.user.name}</p>
                     <p className="text-sm text-theme-2">{post.user.career}</p>
                   </div>
-                </div>
+                </Link>
                 {/* Contenido */}
                 <p className="text-theme mb-2">{post.description}</p>
                 {/* Fecha */}
