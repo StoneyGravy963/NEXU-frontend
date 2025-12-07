@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
@@ -13,6 +13,7 @@ interface MessagePanelProps {
 const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent }) => {
   const { socket } = useContext(SocketContext)!;
   const [newMessages, setNewMessages] = useState<ChatMessage[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Determinar si es primer mensaje basado en si la conversación es nueva o está vacía
   const isFirstMessage = conversation?.isNew === true || (conversation?.messages && conversation.messages.length === 0);
@@ -32,6 +33,11 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent
   useEffect(() => {
     setNewMessages([]);
   }, [conversation?.id]);
+
+  // Scroll al fondo cuando cambian los mensajes
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [allMessages]);
 
   // Socket listener para nuevos mensajes en tiempo real
   useEffect(() => {
@@ -96,6 +102,7 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent
             No hay mensajes en esta conversación.
           </div>
         )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Chat Input */}
