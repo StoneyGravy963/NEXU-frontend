@@ -18,18 +18,18 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations, sele
   return (
     <div className="flex flex-col h-full">
       {}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-theme-2">
         <input
           type="text"
           placeholder="Buscar conversación..."
-          className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none"
+          className="w-full bg-theme-alt text-theme rounded-lg px-4 py-2 focus:outline-none"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
       </div>
 
       {}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto scrolbar-custom">
         {filteredConversations.map(convo => (
           <ConversationListItem
             key={convo.id}

@@ -16,12 +16,12 @@ const Message: React.FC<MessageProps> = ({ message, currentUserId }) => {
       <div
         className={`max-w-md p-3 rounded-2xl ${
           isCurrentUser
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-700 text-gray-200'
+            ? 'bg-zomp text-theme'
+            : 'bg-theme-alt text-theme'
         }`}
       >
         <p className="text-sm">{message.text}</p>
-        <span className={`text-xs ${isCurrentUser ? 'text-blue-200' : 'text-gray-400'} mt-1 block text-right`}>
+        <span className={`text-xs ${isCurrentUser ? 'text-theme-2' : 'text-theme-2'} mt-1 block text-right`}>
           {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>

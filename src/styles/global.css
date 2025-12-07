@@ -1,5 +1,9 @@
-@import "tailwindcss"; 
+/* Import Tailwind */
+@import "tailwindcss";
 
+/* ----------------------------------------
+   THEME COLORS (Static palette)
+----------------------------------------- */
 @theme {
   --color-mint-500: oklch(0.72 0.11 178);
   --color-oxford-blue: #071028;
@@ -7,54 +11,75 @@
   --color-midnight-green: #0f766e;
   --color-zomp: #39a2a6;
   --color-emerald: #10b981;
+  --color-zomp-dark: #2c7a7b;
   --color-primary: #DC3545;
-
-  --color-light-bg-start: var(--bg-start);
-  --color-light-bg-end: var(--bg-end);
-  --color-light-text: var(--light-text);
-  --color-light-secondary-text: var(--light-secondary-text);
-  --color-light-button: var(--light-button);
 }
 
+/* ----------------------------------------
+   SCROLLBAR CUSTOM (Tailwind layer)
+----------------------------------------- */
+@layer utilities {
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 10px;
+  }
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: var(--oxford-blue);
+  }
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: var(--midnight-green);
+    border-radius: 12px;
+  }
+
+  /* Firefox */
+  .scrollbar-custom {
+    scrollbar-width: thin;
+    scrollbar-color: var(--midnight-green) var(--oxford-blue);
+  }
+}
+
+/* ----------------------------------------
+   LIGHT THEME (DEFAULT)
+----------------------------------------- */
 :root {
-  --bg: #E6EAF6;
-  --bg-alt: #F8E7EE;
-  --text: #132E63;
-  --text-secondary: #263A6A;
-  --button: #1B2F80;
-  background: var(--color-oxford-blue);
+  --bg: #FFFFFF;
+  --bg-alt: #F3F4F6;
+  --text: #1E293B;
+  --text-secondary: #64748B;
+  --button: #10B981;
+
+  /* background global (no oscuro por default) */
+  background-color: var(--bg);
 }
 
-/* DARK THEME */
+/* ----------------------------------------
+   DARK THEME
+----------------------------------------- */
 .dark {
   --bg: #071028;
-  --bg-alt: #07132c;
+  --bg-alt: #081735;
   --text: #ffffff;
   --text-secondary: #39a2a6;
   --button: #10b981;
 }
 
-/* Conecta las variables a Tailwind */
+/* ----------------------------------------
+   Tailwind utility connectors
+----------------------------------------- */
 .bg-theme     { background-color: var(--bg); }
 .bg-theme-alt { background-color: var(--bg-alt); }
 .text-theme   { color: var(--text); }
 .text-theme-2 { color: var(--text-secondary); }
 .btn-theme    { background-color: var(--button); color: white; }
 
+/* Body smooth transition */
 body {
-    background-color: var(--oxford-blue);
-    color: var(--color-text-default);
-    transition: background-color 0.3s, color 0.3s; 
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-
+/* Extra button style */
 .btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-background); 
+  background-color: var(--color-primary);
+  color: white;
 }
-
-
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--oxford-blue); }
-::-webkit-scrollbar-thumb { background: var(--midnight-green); border-radius: 12px; }
-* { scrollbar-width: thin; scrollbar-color: var(--midnight-green) var(--oxford-blue); }

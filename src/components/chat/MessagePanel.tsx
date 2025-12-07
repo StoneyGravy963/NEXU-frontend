@@ -75,7 +75,7 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent
   return (
     <div className="flex-1 flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center p-4 bg-gray-800 border-b border-gray-700 flex-shrink-0">
+      <div className="flex items-center p-4 bg-theme border-b border-theme-2 shrink-0">
         {otherUser && (
           <>
             <img
@@ -92,13 +92,13 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto bg-gray-900 p-4">
+      <div className="flex-1 overflow-y-auto bg-theme-alt p-4 scrollbar-custom">
         {allMessages.length > 0 ? (
           allMessages.map((msg: any) => (
             <Message key={msg.id} message={msg} currentUserId={currentUserId} />
           ))
         ) : (
-          <div className="text-gray-400">
+          <div className="text-theme-2">
             No hay mensajes en esta conversación.
           </div>
         )}
@@ -106,7 +106,7 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent
       </div>
 
       {/* Chat Input */}
-      <div className="p-4 bg-gray-800 border-t border-gray-700 flex-shrink-0">
+      <div className="p-4 bg-theme border-t border-theme-2 shrink-0">
         <ChatInput
           onNewMessage={handleNewMessage}
           isFirst={isFirstMessage}

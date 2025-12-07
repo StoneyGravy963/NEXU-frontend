@@ -7,15 +7,13 @@ const ProtectedLayout = () => {
   const {  logout } = useAuth();
 
   return (
-    <div
-      className="
-        min-h-screen 
-        bg-light_bg_start text-light_text
-        dark:bg-oxford-blue dark:text-white
-        transition-colors duration-300
-      "
-    >
-      {/* NAVBAR */}
+          <div
+            className="
+            min-h-screen
+            bg-theme text-theme
+            transition-colors duration-300
+          "
+          >      {/* NAVBAR */}
       <nav
         className="
           p-4 flex justify-between items-center

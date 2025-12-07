@@ -52,7 +52,7 @@ const UserView: React.FC = () => {
   }, [userId]);
 
   const handleSendMessage = async () => {
-    if (!user || !currentUser?.id) return;
+    if (!user || !user.id || !currentUser?.id) return;
     await navigateToChat(user.id, user);
   };
 
@@ -64,23 +64,23 @@ const UserView: React.FC = () => {
   const avatar = (user as any).avatarUrl || (user as any).avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random`;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-800 rounded-lg shadow-xl mt-10 text-white">
+    <div className="max-w-4xl mx-auto p-6 bg-theme rounded-lg shadow-xl mt-10 text-theme">
       <div className="flex items-center justify-between space-x-6 mb-8">
         <div className="flex items-center space-x-6 flex-1">
           <div className="relative w-28 h-28">
             <img
               src={avatar}
               alt={user.name}
-              className="w-full h-full rounded-full object-cover border-4 border-blue-500"
+              className="w-full h-full rounded-full object-cover border-4 border-zomp"
             />
           </div>
           <div>
             <h1 className="text-3xl font-bold">{user.name}</h1>
-            <p className="text-gray-300 text-lg">@{user.name.replace(/\s+/g, '').toLowerCase()}</p>
-            {user.career && <p className="text-gray-300 mt-1">Carrera: {user.career}</p>}
-            {user.gender && <p className="text-gray-300">Género: {user.gender}</p>}
+            <p className="text-theme-2 text-lg">@{user.name.replace(/\s+/g, '').toLowerCase()}</p>
+            {user.career && <p className="text-theme-2 mt-1">Carrera: {user.career}</p>}
+            {user.gender && <p className="text-theme-2">Género: {user.gender}</p>}
             {user.date_of_birth && (
-              <p className="text-gray-300">Nacimiento: {formatDateToDDMMYYYY(user.date_of_birth)}</p>
+              <p className="text-theme-2">Nacimiento: {formatDateToDDMMYYYY(user.date_of_birth)}</p>
             )}
           </div>
         </div>
@@ -89,7 +89,7 @@ const UserView: React.FC = () => {
         {currentUser?.id !== user.id && (
           <button
             onClick={handleSendMessage}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition flex items-center gap-2 whitespace-nowrap h-fit"
+            className="btn-theme hover:bg-zomp-dark px-6 py-3 rounded-lg font-medium transition flex items-center gap-2 whitespace-nowrap h-fit"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -100,16 +100,16 @@ const UserView: React.FC = () => {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-2xl font-semibold border-b border-gray-600 pb-2">Sobre mí</h2>
-        <p className="text-gray-300 mt-4">{user.bio || 'No hay información disponible.'}</p>
+        <h2 className="text-2xl font-semibold border-b border-theme-2 pb-2">Sobre mí</h2>
+        <p className="text-theme-2 mt-4">{user.bio || 'No hay información disponible.'}</p>
       </div>
 
       {user.skills && user.skills.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold border-b border-gray-600 pb-2">Skills</h2>
+          <h2 className="text-2xl font-semibold border-b border-theme-2 pb-2">Skills</h2>
           <div className="flex flex-wrap gap-2 mt-4">
             {user.skills.map((skill: string, index: number) => (
-              <span key={index} className="bg-blue-600 text-white text-sm px-3 py-1 rounded-full">
+              <span key={index} className="bg-zomp text-theme text-sm px-3 py-1 rounded-full">
                 {skill}
               </span>
             ))}
@@ -118,10 +118,10 @@ const UserView: React.FC = () => {
       )}
 
       <div className="mt-8">
-        <h2 className="text-2xl font-semibold border-b border-gray-600 pb-2">Contacto</h2>
-        <p className="text-gray-300 mt-4">
+        <h2 className="text-2xl font-semibold border-b border-theme-2 pb-2">Contacto</h2>
+        <p className="text-theme-2 mt-4">
           Email:{' '}
-          <a href={`mailto:${user.email}`} className="text-blue-400 hover:underline">
+          <a href={`mailto:${user.email}`} className="text-zomp hover:underline">
             {user.email}
           </a>
         </p>

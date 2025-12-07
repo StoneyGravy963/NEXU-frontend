@@ -15,8 +15,8 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
     <div
       className={`flex items-center p-4 cursor-pointer border-l-4 ${
         isSelected
-          ? 'border-blue-500 bg-gray-700'
-          : 'border-transparent hover:bg-gray-700'
+          ? 'border-zomp bg-theme-alt'
+          : 'border-transparent hover:bg-theme-alt'
       }`}
       onClick={onSelect}
     >
@@ -28,14 +28,14 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
       <div className="flex-1 min-w-0">
         <div className="flex justify-between">
           <h3 className="font-semibold">{otherUser.name}</h3>
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-theme-2">
             {lastMessage ? new Date(lastMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
           </span>
         </div>
         <div className="flex justify-between">
-          <p className="text-sm text-gray-400 truncate">{lastMessage ? lastMessage.content : 'Sin mensajes'}</p>
+          <p className="text-sm text-theme-2 truncate">{lastMessage ? lastMessage.content : 'Sin mensajes'}</p>
           {unreadMessages > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2 flex-shrink-0">
+            <span className="bg-emerald text-theme text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2 shrink-0">
               {unreadMessages}
             </span>
           )}

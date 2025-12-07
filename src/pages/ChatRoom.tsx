@@ -198,7 +198,7 @@ const ChatRoom: React.FC = () => {
 
   return (
     <div className="flex h-[calc(100vh-120px)]">
-      <div className="w-1/3 bg-gray-800 border-r border-gray-700 overflow-hidden">
+      <div className="w-1/3 bg-theme-alt border-r border-theme-2 overflow-hidden">
         <ConversationList
           conversations={conversations}
           selectedConversation={selectedConversation}
