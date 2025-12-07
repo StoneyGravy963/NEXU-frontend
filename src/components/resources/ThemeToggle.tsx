@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../styles/toggle.css"; // ⬅️ tu archivo de CSS
 
 export default function ThemeToggle() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   // Cargar tema guardado
   useEffect(() => {
