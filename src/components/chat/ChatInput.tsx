@@ -25,6 +25,9 @@ const ChatInput: React.FC<props> = ({
       console.log("ConvId: " + chatId);
       console.log("targetId: " + targetId);
 
+      // Generar ID único temporal para el mensaje local
+      const tempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
       // Logica de Sockets
       if (isFirst && targetId) {
         console.log("usando el evento startChat");
@@ -37,7 +40,7 @@ const ChatInput: React.FC<props> = ({
 
       // Logica de UI
       const message: ChatMessage = {
-        id: "",
+        id: tempId,
         authorId: userId ? userId : "",
         text: text,
         timestamp: new Date().toISOString(),

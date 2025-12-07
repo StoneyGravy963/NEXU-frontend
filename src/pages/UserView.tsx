@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import type { User } from '../types/user';
 import { getUserById } from '../services/api/userApi';
+import { AuthContext } from '../context/AuthContext';
+import { useMessageNavigation } from '../hooks/useMessageNavigation';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -26,6 +28,9 @@ const UserView: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext?.user;
+  const { navigateToChat } = useMessageNavigation();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,6 +51,11 @@ const UserView: React.FC = () => {
     fetchUser();
   }, [userId]);
 
+  const handleSendMessage = async () => {
+    if (!user || !currentUser?.id) return;
+    await navigateToChat(user.id, user);
+  };
+
   if (loading) return <div className="text-white text-center mt-8">Cargando perfil...</div>;
   if (error) return <div className="text-red-400 text-center mt-8">Error: {error}</div>;
   if (!user) return <div className="text-white text-center mt-8">No se encontró el usuario</div>;
@@ -55,23 +65,38 @@ const UserView: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-800 rounded-lg shadow-xl mt-10 text-white">
-      <div className="flex items-center space-x-6">
-        <div className="relative w-28 h-28">
-          <img
-            src={avatar}
-            alt={user.name}
-            className="w-full h-full rounded-full object-cover border-4 border-blue-500"
-          />
+      <div className="flex items-center justify-between space-x-6 mb-8">
+        <div className="flex items-center space-x-6 flex-1">
+          <div className="relative w-28 h-28">
+            <img
+              src={avatar}
+              alt={user.name}
+              className="w-full h-full rounded-full object-cover border-4 border-blue-500"
+            />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold">{user.name}</h1>
+            <p className="text-gray-300 text-lg">@{user.name.replace(/\s+/g, '').toLowerCase()}</p>
+            {user.career && <p className="text-gray-300 mt-1">Carrera: {user.career}</p>}
+            {user.gender && <p className="text-gray-300">Género: {user.gender}</p>}
+            {user.date_of_birth && (
+              <p className="text-gray-300">Nacimiento: {formatDateToDDMMYYYY(user.date_of_birth)}</p>
+            )}
+          </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold">{user.name}</h1>
-          <p className="text-gray-300 text-lg">@{user.name.replace(/\s+/g, '').toLowerCase()}</p>
-          {user.career && <p className="text-gray-300 mt-1">Carrera: {user.career}</p>}
-          {user.gender && <p className="text-gray-300">Género: {user.gender}</p>}
-          {user.date_of_birth && (
-            <p className="text-gray-300">Nacimiento: {formatDateToDDMMYYYY(user.date_of_birth)}</p>
-          )}
-        </div>
+
+        {/* Botón Enviar Mensaje - Solo aparece si no es tu propio perfil */}
+        {currentUser?.id !== user.id && (
+          <button
+            onClick={handleSendMessage}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition flex items-center gap-2 whitespace-nowrap h-fit"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Enviar Mensaje
+          </button>
+        )}
       </div>
 
       <div className="mt-8">
