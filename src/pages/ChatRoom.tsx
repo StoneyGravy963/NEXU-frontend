@@ -1,18 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import ConversationList from '../components/chat/ConversationList';
 import MessagePanel from '../components/chat/MessagePanel';
 import { getChats, getMessages } from '../services/api/chatApi';
+import { SocketContext } from '../context/SocketContext';
+import { AuthContext } from '../context/AuthContext';
 
 const ChatRoom: React.FC = () => {
   const location = useLocation();
   const navigationState = (location.state as any) || {};
+  const { socket } = useContext(SocketContext)!;
+  const authContext = useContext(AuthContext);
+  const user = authContext?.user;
 
   const [conversations, setConversations] = useState<any[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<any | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const conversationsRef = useRef(conversations);
+
+  useEffect(() => {
+    conversationsRef.current = conversations;
+  }, [conversations]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleIncomingMessage = async (data: any) => {
+      // Ignorar mensajes propios para evitar duplicados si ya se manejan optimísticamente
+      if (user && data.sender_id === user.id) return;
+
+      const exists = conversationsRef.current.find((c) => c.id === data.chat_id);
+
+      if (exists) {
+        setConversations((prevConversations) => {
+          const existingIndex = prevConversations.findIndex((c) => c.id === data.chat_id);
+          if (existingIndex === -1) return prevConversations;
+
+          const updatedConversation = {
+            ...prevConversations[existingIndex],
+            last_message: {
+              content: data.message,
+              timestamp: new Date().toISOString(),
+            },
+          };
+          const otherConvos = prevConversations.filter((c) => c.id !== data.chat_id);
+          return [updatedConversation, ...otherConvos];
+        });
+      } else {
+        // Chat nuevo para el receptor, recargar la lista completa para obtener datos del usuario, etc.
+        try {
+          const chats = await getChats();
+          setConversations(chats || []);
+        } catch (err) {
+          console.error("Error updating chats list:", err);
+        }
+      }
+    };
+
+    socket.on('new_notification', handleIncomingMessage);
+    return () => {
+      socket.off('new_notification', handleIncomingMessage);
+    };
+  }, [socket, user]);
 
   useEffect(() => {
     const fetchChats = async () => {
