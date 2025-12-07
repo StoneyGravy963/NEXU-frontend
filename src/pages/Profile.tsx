@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useSearchParams } from 'react-router-dom';
 import EditProfileModal from '../components/profile/EditProfileModal';
