@@ -18,10 +18,9 @@ export default function Feed() {
 
   return (
     <div className="w-full p-4 ">
-
       {/* Buscador por tag */}
       <select
-        className="w-full p-2 mb-4 rounded-lg bg-theme-alt border border-theme-alt-border text-theme"
+        className="w-full p-2 mb-4 rounded-lg bg-theme-alt border border-white text-theme hover:border-zomp transition-colors"
         value={filterTag}
         onChange={(e) => setFilterTag(e.target.value)}
       >
@@ -46,29 +45,34 @@ export default function Feed() {
           <div
             key={post.id}
             className="
-              bg-theme-alt p-4 rounded-lg shadow-md
-              border border-theme-alt-border transition
+              bg-theme-alt p-4 rounded-lg shadow-md transition hover:backdrop-blur-2xl hover:border-zomp/50 border-2 border-transparent
             "
           >
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-2">
-              <img
-                src={post.user.avatar_url}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              <div>
-                <p className="font-semibold text-theme">{post.user.name}</p>
-                <p className="text-sm text-theme-2">{post.tag.name}</p>
+            <div className="flex flex-row justify-between">
+              {/* Header */}
+              <div className="">
+                <div className="flex items-center gap-3 mb-2">
+                  <img
+                    src={post.user.avatar_url}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold text-theme">{post.user.name}</p>
+                    <p className="text-sm text-theme-2">{post.user.career}</p>
+                  </div>
+                </div>
+                {/* Contenido */}
+                <p className="text-theme mb-2">{post.description}</p>
+                {/* Fecha */}
+                <p className="text-xs text-theme-2">
+                  {new Date(post.timestamp).toLocaleString()}
+                </p>
               </div>
+              <div className="">
+              <p className="text-sm text-theme-2 bg-zomp/20 border-2 border-zomp p-2 rounded-full">{post.tag.name}</p>
             </div>
-
-            {/* Contenido */}
-            <p className="text-theme mb-2">{post.description}</p>
-
-            {/* Fecha */}
-            <p className="text-xs text-theme-2">
-              {new Date(post.timestamp).toLocaleString()}
-            </p>
+            </div>
+            
           </div>
         ))}
       </div>
