@@ -55,7 +55,7 @@ const UserView: React.FC = () => {
   }, [userId]);
 
   const handleSendMessage = async () => {
-    if (!user || !currentUser?.id) return;
+    if (!user || !currentUser?.id || !user.id) return;
     await navigateToChat(user.id, user);
   };
 
@@ -128,7 +128,7 @@ const UserView: React.FC = () => {
             <p className="text-gray-400">Cargando posts...</p>
           ) : posts.length > 0 ? (
             posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard key={post.id} post={post} disableProfileLink={true} />
             ))
           ) : (
             <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>

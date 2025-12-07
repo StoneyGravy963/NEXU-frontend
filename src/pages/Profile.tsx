@@ -113,10 +113,10 @@ const UserProfile: React.FC = () => {
               <p className="text-gray-400">Cargando posts...</p>
             ) : posts.length > 0 ? (
               posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <PostCard key={post.id} post={post} disableProfileLink={true} />
               ))
             ) : (
-              <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>
+              <p className="text-gray-400">No has publicado nada</p>
             )}
           </div>
         </div>
