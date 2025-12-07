@@ -20,10 +20,15 @@ const ChatRoom: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const conversationsRef = useRef(conversations);
+  const selectedConversationRef = useRef(selectedConversation);
 
   useEffect(() => {
     conversationsRef.current = conversations;
   }, [conversations]);
+
+  useEffect(() => {
+    selectedConversationRef.current = selectedConversation;
+  }, [selectedConversation]);
 
   useEffect(() => {
     if (!socket) return;
@@ -39,12 +44,16 @@ const ChatRoom: React.FC = () => {
           const existingIndex = prevConversations.findIndex((c) => c.id === data.chat_id);
           if (existingIndex === -1) return prevConversations;
 
+          const isCurrentChat = selectedConversationRef.current?.id === data.chat_id;
+          const currentUnread = prevConversations[existingIndex].unread_messages || 0;
+
           const updatedConversation = {
             ...prevConversations[existingIndex],
             last_message: {
               content: data.message,
               timestamp: new Date().toISOString(),
             },
+            unread_messages: isCurrentChat ? 0 : currentUnread + 1,
           };
           const otherConvos = prevConversations.filter((c) => c.id !== data.chat_id);
           return [updatedConversation, ...otherConvos];
@@ -83,6 +92,7 @@ const ChatRoom: React.FC = () => {
             messages: [],
             isNew: true,
             targetUserId: navigationState.targetUserId,
+            unread_messages: 0,
           };
           setSelectedConversation(newConversation);
           setMessages([]);
@@ -97,6 +107,7 @@ const ChatRoom: React.FC = () => {
               id: navigationState.chatId,
               other_user: navigationState.otherUser,
               messages: [],
+              unread_messages: 0,
             };
             setSelectedConversation(tempConversation);
           }
@@ -116,6 +127,13 @@ const ChatRoom: React.FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       if (selectedConversation) {
+        // Reset unread count for the selected conversation locally
+        setConversations((prev) =>
+          prev.map((c) =>
+            c.id === selectedConversation.id ? { ...c, unread_messages: 0 } : c
+          )
+        );
+
         try {
           const response = await getMessages(selectedConversation.id);
           const msgs = response?.data || [];
