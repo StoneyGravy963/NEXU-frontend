@@ -35,7 +35,7 @@ const ConversationListItem: React.FC<ConversationListItemProps> = ({ conversatio
         <div className="flex justify-between">
           <p className="text-sm text-gray-400 truncate">{lastMessage ? lastMessage.content : 'Sin mensajes'}</p>
           {unreadMessages > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2 flex-shrink-0">
+            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center ml-2 shrink-0">
               {unreadMessages}
             </span>
           )}
