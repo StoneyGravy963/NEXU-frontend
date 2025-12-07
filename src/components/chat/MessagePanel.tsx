@@ -7,9 +7,10 @@ import type { ChatMessage } from "../../types/chat";
 
 interface MessagePanelProps {
   conversation: any | null;
+  onMessageSent?: (text: string) => void;
 }
 
-const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
+const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent }) => {
   const { socket } = useContext(SocketContext)!;
   const [newMessages, setNewMessages] = useState<ChatMessage[]>([]);
 
@@ -105,6 +106,7 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
           userId={currentUserId}
           targetId={conversation?.other_user?.id || conversation?.targetUserId}
           chatId={conversation?.id}
+          onMessageSent={onMessageSent}
         />
       </div>
     </div>

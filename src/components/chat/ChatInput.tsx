@@ -7,6 +7,7 @@ interface props {
   userId: string | undefined;
   chatId?: string;
   onNewMessage: any;
+  onMessageSent?: (text: string) => void;
 }
 const ChatInput: React.FC<props> = ({
   isFirst,
@@ -14,6 +15,7 @@ const ChatInput: React.FC<props> = ({
   userId,
   chatId,
   onNewMessage,
+  onMessageSent,
 }) => {
   const [text, setText] = useState("");
   const { startChat, sendMessage } = useChat();
@@ -46,6 +48,11 @@ const ChatInput: React.FC<props> = ({
         timestamp: new Date().toISOString(),
       };
       onNewMessage(message);
+
+      // Notificar al padre que se envió un mensaje (para actualizar lista de chats)
+      if (onMessageSent) {
+        onMessageSent(text);
+      }
 
       setText("");
     }

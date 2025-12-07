@@ -83,6 +83,42 @@ const ChatRoom: React.FC = () => {
     setSelectedConversation(conversation);
   };
 
+  const handleMessageSent = (text: string) => {
+    if (!selectedConversation) return;
+
+    setConversations((prevConversations) => {
+      // Check if conversation already exists in the list
+      const existingIndex = prevConversations.findIndex((c) => c.id === selectedConversation.id);
+
+      let updatedConversation;
+
+      if (existingIndex >= 0) {
+        // Update existing conversation with new last message
+        updatedConversation = {
+          ...prevConversations[existingIndex],
+          last_message: {
+            content: text,
+            timestamp: new Date().toISOString(),
+          },
+        };
+        // Move to top
+        const otherConvos = prevConversations.filter((c) => c.id !== selectedConversation.id);
+        return [updatedConversation, ...otherConvos];
+      } else {
+        // Add new conversation to the list
+        updatedConversation = {
+          ...selectedConversation,
+          isNew: false,
+          last_message: {
+            content: text,
+            timestamp: new Date().toISOString(),
+          },
+        };
+        return [updatedConversation, ...prevConversations];
+      }
+    });
+  };
+
   if (loading) {
     return <div className="text-white text-center mt-8">Cargando chats...</div>;
   }
@@ -105,7 +141,10 @@ const ChatRoom: React.FC = () => {
             other_user: selectedConversation.other_user,
             messages: messages,
             id: selectedConversation.id,
+            isNew: selectedConversation.isNew,
+            targetUserId: selectedConversation.targetUserId
           } : null}
+          onMessageSent={handleMessageSent}
         />
       </div>
     </div>
