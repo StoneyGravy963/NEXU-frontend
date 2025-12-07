@@ -69,10 +69,16 @@ export default function Feed() {
                 </p>
               </div>
               <div className="">
-              <p className="text-sm text-theme-2 bg-zomp/20 border-2 border-zomp p-2 rounded-full">{post.tag.name}</p>
+                <p
+                  className="
+                    text-sm text-theme-2 bg-zomp/20 border-2 border-zomp p-2 rounded-full text-center
+                    truncate max-w-[100px]     
+                    md:truncate-none md:max-w-none  
+                  ">
+                  {post.tag.name}
+                </p>
+              </div>
             </div>
-            </div>
-            
           </div>
         ))}
       </div>
