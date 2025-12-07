@@ -3,6 +3,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useSearchParams } from 'react-router-dom';
 import EditProfileModal from '../components/profile/EditProfileModal';
 import type { User } from '../types/user';
+import { useUserPosts } from '../hooks/useUserPosts';
+import { PostCard } from '../components/home/PostCard';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -26,6 +28,7 @@ const UserProfile: React.FC = () => {
   const { user, updateUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { posts, loading: loadingPosts } = useUserPosts(user?.id);
 
   // Abrir modal automáticamente si viene el parámetro edit=true
   useEffect(() => {
@@ -101,6 +104,22 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Sección de Posts */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">Posts</h2>
+          <div className="mt-4 flex flex-col gap-4">
+            {loadingPosts ? (
+              <p className="text-gray-400">Cargando posts...</p>
+            ) : posts.length > 0 ? (
+              posts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))
+            ) : (
+              <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>
+            )}
+          </div>
+        </div>
 
         <div className="mt-8">
           <h2 className="text-2xl font-semibold text-white border-b border-gray-600 pb-2">Contact</h2>

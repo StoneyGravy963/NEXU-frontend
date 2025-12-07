@@ -4,6 +4,8 @@ import type { User } from '../types/user';
 import { getUserById } from '../services/api/userApi';
 import { AuthContext } from '../context/AuthContext';
 import { useMessageNavigation } from '../hooks/useMessageNavigation';
+import { useUserPosts } from '../hooks/useUserPosts';
+import { PostCard } from '../components/home/PostCard';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -31,6 +33,7 @@ const UserView: React.FC = () => {
   const authContext = useContext(AuthContext);
   const currentUser = authContext?.user;
   const { navigateToChat } = useMessageNavigation();
+  const { posts, loading: loadingPosts } = useUserPosts(userId);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -116,6 +119,22 @@ const UserView: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Sección de Posts */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold border-b border-gray-600 pb-2">Posts</h2>
+        <div className="mt-4 flex flex-col gap-4">
+          {loadingPosts ? (
+            <p className="text-gray-400">Cargando posts...</p>
+          ) : posts.length > 0 ? (
+            posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))
+          ) : (
+            <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>
+          )}
+        </div>
+      </div>
 
       <div className="mt-8">
         <h2 className="text-2xl font-semibold border-b border-gray-600 pb-2">Contacto</h2>

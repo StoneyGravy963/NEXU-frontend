@@ -1,48 +1,41 @@
+import { Link } from "react-router-dom";
+
 interface PostCardProps {
-  nombre: string;
-  carrera: string;
-  categoria: string;
-  contenido: string;
+  post: any;
 }
 
-export function PostCard({ nombre, carrera, categoria, contenido }: PostCardProps) {
+export function PostCard({ post }: PostCardProps) {
   return (
     <div
       className="
-        bg-theme-alt p-4 rounded-xl shadow-md 
-        transition-colors
+        bg-theme-alt p-4 rounded-lg shadow-md transition hover:backdrop-blur-2xl hover:border-zomp/50 border-2 border-transparent
       "
     >
-      {/* Header */}
-      <div className="flex justify-between items-center mb-3">
-        
-        {/* Usuario */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full" />
-
-          <div className="flex flex-col">
-            <span className="text-lg font-semibold text-theme">{nombre}</span>
-            <span className="text-theme-2 text-sm">{carrera}</span>
-          </div>
+      <div className="flex flex-row justify-between">
+        {/* Header */}
+        <div className="">
+          <Link to={`/profile/${post.user.id}`} className="flex items-center gap-3 mb-2 hover:opacity-80 transition-opacity">
+            <img
+              src={post.user.avatar_url}
+              className="w-10 h-10 rounded-full object-cover"
+              alt={post.user.name}
+            />
+            <div>
+              <p className="font-semibold text-theme hover:underline">{post.user.name}</p>
+              <p className="text-sm text-theme-2">{post.user.career}</p>
+            </div>
+          </Link>
+          {/* Contenido */}
+          <p className="text-theme mb-2">{post.description}</p>
+          {/* Fecha */}
+          <p className="text-xs text-theme-2">
+            {new Date(post.timestamp).toLocaleString()}
+          </p>
         </div>
-
-        {/* Categoría */}
-        <span
-          className="
-            text-xs 
-            bg-emerald/20 text-emerald 
-            px-3 py-1 rounded-full
-            font-medium
-          "
-        >
-          {categoria}
-        </span>
+        <div className="">
+          <p className="text-sm text-theme-2 bg-zomp/20 border-2 border-zomp p-2 rounded-full">{post.tag.name}</p>
+        </div>
       </div>
-
-      {/* Contenido */}
-      <p className="text-theme leading-relaxed">
-        {contenido}
-      </p>
     </div>
   );
 }
