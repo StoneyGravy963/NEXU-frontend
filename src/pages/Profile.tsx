@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useSearchParams } from 'react-router-dom';
 import EditProfileModal from '../components/profile/EditProfileModal';
 import type { User } from '../types/user';
 
@@ -23,7 +24,18 @@ function formatDateToDDMMYYYY(dateStr?: string) {
 
 const UserProfile: React.FC = () => {
   const { user, updateUser } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  // Abrir modal automáticamente si viene el parámetro edit=true
+  useEffect(() => {
+    if (searchParams.get('edit') === 'true') {
+      setIsEditModalOpen(true);
+      // Limpiar el parámetro de la URL
+      searchParams.delete('edit');
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const handleProfileUpdated = (updatedUser: User) => {
     console.log('Perfil actualizado:', updatedUser);

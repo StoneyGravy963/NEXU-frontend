@@ -7,6 +7,7 @@ interface props {
   userId: string | undefined;
   chatId?: string;
   onNewMessage: any;
+  onMessageSent?: (text: string) => void;
 }
 const ChatInput: React.FC<props> = ({
   isFirst,
@@ -14,6 +15,7 @@ const ChatInput: React.FC<props> = ({
   userId,
   chatId,
   onNewMessage,
+  onMessageSent,
 }) => {
   const [text, setText] = useState("");
   const { startChat, sendMessage } = useChat();
@@ -24,6 +26,9 @@ const ChatInput: React.FC<props> = ({
       console.log("Mensaje enviado:", text);
       console.log("ConvId: " + chatId);
       console.log("targetId: " + targetId);
+
+      // Generar ID único temporal para el mensaje local
+      const tempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
       // Logica de Sockets
       if (isFirst && targetId) {
@@ -37,12 +42,17 @@ const ChatInput: React.FC<props> = ({
 
       // Logica de UI
       const message: ChatMessage = {
-        id: "",
+        id: tempId,
         authorId: userId ? userId : "",
         text: text,
         timestamp: new Date().toISOString(),
       };
       onNewMessage(message);
+
+      // Notificar al padre que se envió un mensaje (para actualizar lista de chats)
+      if (onMessageSent) {
+        onMessageSent(text);
+      }
 
       setText("");
     }

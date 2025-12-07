@@ -35,14 +35,21 @@ export default function LoginPanel({
       />
       <button
         onClick={onLogin}
-        className="w-full py-3 rounded-md bg-midnight-green hover:bg-emerald transition"
+        className="w-full py-3 rounded-md bg-midnight-green hover:bg-emerald transition text-white bold-font"
       >
         Login
+      </button>
+      <button
+        onClick={onLogin}
+        className="w-full py-3 rounded-md bg-white hover:bg-gray-200 transition my-2 "
+      >
+        <img src="img/googleIcon.webp" alt="Google icon" className="inline-block mr-2 w-8 h-8" />
+        Sign Up with Google
       </button>
 
       <button
         onClick={onSignupNavigate}
-        className="w-full mt-3 py-3 rounded-md bg-zomp hover:bg-emerald transition"
+        className="w-full  py-3 rounded-md bg-zomp hover:bg-emerald transition text-white bold-font"
       >
         Sign Up
       </button>

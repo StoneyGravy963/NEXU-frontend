@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
@@ -7,11 +7,16 @@ import type { ChatMessage } from "../../types/chat";
 
 interface MessagePanelProps {
   conversation: any | null;
+  onMessageSent?: (text: string) => void;
 }
 
-const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
+const MessagePanel: React.FC<MessagePanelProps> = ({ conversation, onMessageSent }) => {
   const { socket } = useContext(SocketContext)!;
   const [newMessages, setNewMessages] = useState<ChatMessage[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Determinar si es primer mensaje basado en si la conversación es nueva o está vacía
+  const isFirstMessage = conversation?.isNew === true || (conversation?.messages && conversation.messages.length === 0);
 
   // Mapear mensajes que vienen del backend
   const mappedMessages = (conversation?.messages || []).map((msg: any) => ({
@@ -24,25 +29,38 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
   // Combinar mensajes del backend + mensajes nuevos en tiempo real
   const allMessages = [...mappedMessages, ...newMessages];
 
+  // Limpiar mensajes locales cuando cambia la conversación
+  useEffect(() => {
+    setNewMessages([]);
+  }, [conversation?.id]);
+
+  // Scroll al fondo cuando cambian los mensajes
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [allMessages]);
+
   // Socket listener para nuevos mensajes en tiempo real
   useEffect(() => {
-    if (!socket) return;
+    if (!socket || !conversation?.id) return;
 
     const handler = (data: any) => {
-      const newMessage: ChatMessage = {
-        id: data.id,
-        authorId: data.sender_id,
-        text: data.message,
-        timestamp: new Date().toISOString(),
-      };
-      setNewMessages((prev) => [...prev, newMessage]);
+      // Filtrar mensajes solo si pertenecen a la conversación actual
+      if (data.chat_id === conversation.id) {
+        const newMessage: ChatMessage = {
+          id: data.id,
+          authorId: data.sender_id,
+          text: data.message,
+          timestamp: new Date().toISOString(),
+        };
+        setNewMessages((prev) => [...prev, newMessage]);
+      }
     };
 
     socket.on("new_notification", handler);
     return () => {
       socket.off("new_notification", handler);
     };
-  }, [socket]);
+  }, [socket, conversation?.id]);
 
   // Datos del usuario desde el contexto
   const otherUser = conversation?.other_user;
@@ -84,16 +102,18 @@ const MessagePanel: React.FC<MessagePanelProps> = ({ conversation }) => {
             No hay mensajes en esta conversación.
           </div>
         )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Chat Input */}
       <div className="p-4 bg-gray-800 border-t border-gray-700 flex-shrink-0">
         <ChatInput
           onNewMessage={handleNewMessage}
-          isFirst={false}
+          isFirst={isFirstMessage}
           userId={currentUserId}
-          targetId={otherUser}
+          targetId={conversation?.other_user?.id || conversation?.targetUserId}
           chatId={conversation?.id}
+          onMessageSent={onMessageSent}
         />
       </div>
     </div>
