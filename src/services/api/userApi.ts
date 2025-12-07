@@ -59,6 +59,11 @@ export const createPost = async (postData: { tag_id: string; description: string
   return response.data?.data;
 };
 
+export const deletePost = async (postId: string) => {
+  const response = await api.delete(`/posts/${postId}`);
+  return response.data;
+};
+
 export const getAllPosts = async (tagId?: string): Promise<any[]> => {
   const response = await api.get('/posts/', {
     params: tagId ? { filter: tagId } : {}

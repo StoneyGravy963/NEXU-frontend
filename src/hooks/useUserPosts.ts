@@ -30,5 +30,5 @@ export const useUserPosts = (userId: string | undefined) => {
     fetchUserPosts();
   }, [userId]);
 
-  return { posts, loading, error };
+  return { posts, setPosts, loading, error };
 };

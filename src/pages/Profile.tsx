@@ -5,6 +5,7 @@ import EditProfileModal from '../components/profile/EditProfileModal';
 import type { User } from '../types/user';
 import { useUserPosts } from '../hooks/useUserPosts';
 import { PostCard } from '../components/home/PostCard';
+import { deletePost } from '../services/api/userApi';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -28,7 +29,7 @@ const UserProfile: React.FC = () => {
   const { user, updateUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { posts, loading: loadingPosts } = useUserPosts(user?.id);
+  const { posts, setPosts, loading: loadingPosts } = useUserPosts(user?.id);
 
   // Abrir modal automáticamente si viene el parámetro edit=true
   useEffect(() => {
@@ -43,6 +44,16 @@ const UserProfile: React.FC = () => {
   const handleProfileUpdated = (updatedUser: User) => {
     console.log('Perfil actualizado:', updatedUser);
     updateUser(updatedUser);
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      await deletePost(postId);
+      setPosts((currentPosts) => currentPosts.filter((p) => p.id !== postId));
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      alert('Error al eliminar el post. Inténtalo de nuevo.');
+    }
   };
 
   if (!user) {
@@ -113,10 +124,16 @@ const UserProfile: React.FC = () => {
               <p className="text-gray-400">Cargando posts...</p>
             ) : posts.length > 0 ? (
               posts.map((post) => (
-                <PostCard key={post.id} post={post} disableProfileLink={true} />
+                <PostCard 
+                  key={post.id} 
+                  post={post} 
+                  disableProfileLink={true}
+                  isOwner={true}
+                  onDelete={handleDeletePost}
+                />
               ))
             ) : (
-              <p className="text-gray-400">No has publicado nada</p>
+              <p className="text-gray-400">Este usuario no ha publicado nada aún.</p>
             )}
           </div>
         </div>
