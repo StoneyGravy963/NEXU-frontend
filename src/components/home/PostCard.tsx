@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UserAvatar } from "../resources/UserAvatar";
 
 interface PostCardProps {
   post: any;
@@ -23,10 +24,10 @@ export function PostCard({ post, disableProfileLink = false, isOwner = false, on
 
   const UserInfoContent = () => (
     <>
-      <img
-        src={post.user.avatar_url}
+      <UserAvatar
+        avatarUrl={post.user.avatar_url}
+        name={post.user.name}
         className="w-10 h-10 rounded-full object-cover"
-        alt={post.user.name}
       />
       <div>
         <p className={`font-semibold text-theme ${!disableProfileLink ? "hover:underline" : ""}`}>

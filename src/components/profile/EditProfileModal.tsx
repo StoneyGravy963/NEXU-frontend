@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile, uploadAvatar, getTags } from '../../services/api/userApi';
 import type { User, Tag } from '../../types/user';
+import { UserAvatar } from '../resources/UserAvatar';
 
 interface EditProfileModalProps {
   user: User;
@@ -123,11 +124,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             {/* Avatar */}
             <div className="mb-6 flex flex-col items-center">
               <div className="relative w-32 h-32 mb-4">
-                <img
-                  src={
-                    avatarPreview ||
-                    `https://ui-avatars.com/api/?name=${user.name}&background=random`
-                  }
+                <UserAvatar
+                  avatarUrl={avatarPreview || user.avatarUrl}
+                  name={user.name}
                   className="w-full h-full rounded-full object-cover border-4 border-zomp"
                 />
                 <label

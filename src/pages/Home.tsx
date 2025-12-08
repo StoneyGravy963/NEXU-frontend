@@ -27,7 +27,7 @@ export default function Home() {
       {/* HEADER */}
       <HomeHeader 
         username={user?.name || "Usuario"} 
-        avatar_url={user?.avatarUrl || "/default-avatar.png"} 
+        avatar_url={user?.avatarUrl || null} 
         onPostCreated={handlePostCreated}
       />
 

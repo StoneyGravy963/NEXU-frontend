@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { CreatePostModal } from "../resources/CreatePostModal";
+import { UserAvatar } from "../resources/UserAvatar";
 
 interface HomeHeaderProps {
   username: string;
-  avatar_url: string;
+  avatar_url: string | null;
   onPostCreated: (newPost: any) => void;
 }
 
@@ -35,8 +36,9 @@ export function HomeHeader({ username, avatar_url, onPostCreated }: HomeHeaderPr
           "
           onClick={() => setIsModalOpen(true)}
         >
-          <img
-            src={avatar_url || "/default-avatar.png"}
+          <UserAvatar
+            avatarUrl={avatar_url}
+            name={username}
             className="w-10 h-10 rounded-full object-cover"
           />
 

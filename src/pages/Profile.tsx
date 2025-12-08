@@ -6,6 +6,7 @@ import type { User } from '../types/user';
 import { useUserPosts } from '../hooks/useUserPosts';
 import { PostCard } from '../components/home/PostCard';
 import { deletePost } from '../services/api/userApi';
+import { UserAvatar } from '../components/resources/UserAvatar';
 
 function formatDateToDDMMYYYY(dateStr?: string) {
   if (!dateStr) return '';
@@ -65,9 +66,9 @@ const UserProfile: React.FC = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-6">
             <div className="relative w-28 h-28">
-              <img
-                src={user.avatarUrl || `https://ui-avatars.com/api/?name=${user.name}&background=random`}
-                alt={user.name}
+              <UserAvatar
+                avatarUrl={user.avatarUrl}
+                name={user.name}
                 className="w-full h-full rounded-full object-cover border-4 border-accent"
               />
             </div>
