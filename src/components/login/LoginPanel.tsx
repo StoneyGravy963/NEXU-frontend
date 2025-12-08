@@ -41,7 +41,7 @@ export default function LoginPanel({
       </button>
       <button
         onClick={onLogin}
-        className="w-full py-3 rounded-md bg-white hover:bg-gray-200 transition my-2 "
+        className="w-full py-3 text-black rounded-md bg-white hover:bg-gray-200 transition my-2 "
       >
         <img src="img/googleIcon.webp" alt="Google icon" className="inline-block mr-2 w-8 h-8" />
         Sign Up with Google

@@ -20,8 +20,8 @@ const Message: React.FC<MessageProps> = ({ message, currentUserId }) => {
             : 'bg-theme-alt text-theme'
         }`}
       >
-        <p className="text-sm">{message.text}</p>
-        <span className={`text-xs ${isCurrentUser ? 'text-theme-2' : 'text-theme-2'} mt-1 block text-right`}>
+        <p className="text-sm max-w-[400px] wrap-break-word">{message.text}</p>
+        <span className={`text-xs ${isCurrentUser ? 'text-theme' : 'text-theme'} mt-1 block text-right`}>
           {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
